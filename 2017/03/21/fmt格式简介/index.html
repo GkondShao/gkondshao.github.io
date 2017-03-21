@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RSS," />
+  <meta name="keywords" content="Golang," />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证类型系统基本类型:int int32 int64 int16 int8 uint uint8(byte) uint16 uint32 uint64 string float32 float64 rune error complex64 complex128 uintptr">
+<meta name="description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
+1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
 <meta property="og:type" content="article">
-<meta property="og:title" content="goInActionNote(1)">
-<meta property="og:url" content="http://yoursite.com/2017/03/13/goInActionNote-1/index.html">
+<meta property="og:title" content="fmt格式简介">
+<meta property="og:url" content="http://yoursite.com/2017/03/21/fmt格式简介/index.html">
 <meta property="og:site_name" content="GO!">
-<meta property="og:description" content="tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证类型系统基本类型:int int32 int64 int16 int8 uint uint8(byte) uint16 uint32 uint64 string float32 float64 rune error complex64 complex128 uintptr">
-<meta property="og:updated_time" content="2017-03-14T11:38:58.349Z">
+<meta property="og:description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
+1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
+<meta property="og:updated_time" content="2017-03-21T15:13:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="goInActionNote(1)">
-<meta name="twitter:description" content="tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证类型系统基本类型:int int32 int64 int16 int8 uint uint8(byte) uint16 uint32 uint64 string float32 float64 rune error complex64 complex128 uintptr">
+<meta name="twitter:title" content="fmt格式简介">
+<meta name="twitter:description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
+1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
 
 
 
@@ -114,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/13/goInActionNote-1/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/21/fmt格式简介/"/>
 
-  <title> goInActionNote(1) | GO! </title>
+  <title> fmt格式简介 | GO! </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -246,7 +249,7 @@
             
             
               
-                goInActionNote(1)
+                fmt格式简介
               
             
           </h1>
@@ -258,8 +261,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2017-03-13T19:17:09+08:00" content="2017-03-13">
-              2017-03-13
+            <time itemprop="dateCreated" datetime="2017-03-21T20:18:06+08:00" content="2017-03-21">
+              2017-03-21
             </time>
           </span>
 
@@ -272,8 +275,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/GoInAction笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">GoInAction笔记</span>
+                  <a href="/categories/Golang杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang杂记</span>
                   </a>
                 </span>
 
@@ -305,11 +308,41 @@
       
 
       
-        <h3 id="tip1-channel-不支持跨goroutine-的安全保证-值传递自然对数据副本的操作是安全的-指针传递的需自己完成锁保证"><a href="#tip1-channel-不支持跨goroutine-的安全保证-值传递自然对数据副本的操作是安全的-指针传递的需自己完成锁保证" class="headerlink" title="tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证"></a>tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证</h3><h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>基本类型:int int32 int64 int16 int8 uint uint8(byte) uint16 uint32 uint64 string float32 float64 rune error complex64 complex128 uintptr array slice struct map channel function interface </p>
-<h2 id="chapter2-RSS"><a href="#chapter2-RSS" class="headerlink" title="chapter2 RSS"></a>chapter2 RSS</h2><p>RSS :rss文件实际上就是一段符合规范的xml文件,一般rdf,xml,rss为文件后缀</p>
-<p>发布一个rss文件,即RSS Feed(订阅源).因为其规范性,各大站点均可以互相调用各自的RSS Feed,解析内容.</p>
-<p>RSS聚合:通过代码从网络上搜集各类RSS Feed 并整合在一个界面供读者阅读.</p>
-<h3 id="RSS格式介绍"><a href="#RSS格式介绍" class="headerlink" title="RSS格式介绍"></a>RSS格式介绍</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version = "1.0" encoding="UTF-8" ?&gt;</div><div class="line">&lt;!--rss版本--&gt;</div><div class="line">&lt;rss version="2.0"&gt;</div><div class="line">&lt;!--频道信息以及新闻列表 --&gt;</div><div class="line">&lt;channel&gt;</div><div class="line">    &lt;title&gt;网站(频道)标题&lt;/title&gt;</div><div class="line">    &lt;link&gt;网站(频道)首页地址&lt;/link&gt;</div><div class="line">    &lt;description&gt;描述&lt;/description&gt;</div><div class="line">    &lt;copyright&gt;授权信息&lt;/copyright&gt;</div><div class="line">    &lt;language&gt;使用的语言(zh-cn表示简体中文)&lt;/language&gt;</div><div class="line">     &lt;pubDate&gt;Sat, 07 Sep 2002 00:00:01 GMT&lt;/pubDate&gt;&lt;!--遵循RFC 822 --&gt;</div><div class="line">    &lt;lastBuildDate&gt;Sat, 07 Sep 2002 09:42:31 GMT&lt;/lastBuildDate&gt;&lt;!--遵循RFC 822  --&gt;</div><div class="line">    &lt;category&gt;频道所属分类,与item的category一致&lt;/category&gt;</div><div class="line">    &lt;doc&gt;文档地址&lt;/doc&gt;</div><div class="line">    &lt;!--频道生成器(代码工具类)--&gt;</div><div class="line">    &lt;generator&gt;Weblog Editor&lt;/generator&gt;</div><div class="line">    &lt;!--通信协议说明,供获取更新通知 --&gt;</div><div class="line">    &lt;&lt;cloud domain="rpc.sys.com" port="80" path="/RPC2" registerProcedure="pingMe" protocol="soap"/&gt;</div><div class="line">    &lt;!-- 影像,包含3个可选元素 url,title,link--&gt;</div><div class="line">    &lt;image&gt;&lt;/image&gt;</div><div class="line">    &lt;rating&gt;频道统计图片地址&lt;/rating&gt;</div><div class="line">    &lt;!--指定一个textbox与频道一起显示 --&gt;</div><div class="line">    &lt;skipHours&gt;&lt;/skipHours&gt;</div><div class="line">    &lt;skipDays&gt;&lt;/skipDays&gt;</div><div class="line">    &lt;textInput&gt;包含4个子节点:name,title,link,description&lt;/textInput&gt;</div><div class="line">    &lt;!--频道内容负责人--&gt;</div><div class="line">    &lt;managingEditor&gt;123@outlook.com&lt;/managingEditor&gt;</div><div class="line">    &lt;!--技术人员的--&gt;</div><div class="line">    &lt;webMaster&gt;234@gmail.com&lt;/webMaster&gt;</div><div class="line">    &lt;!-- Time to live 缓存时间,rss的过期信息并不可见--&gt;</div><div class="line">    &lt;ttl&gt;5&lt;/ttl&gt; </div><div class="line">    &lt;!-- 以上就是频道信息.还有image展示等--&gt;</div><div class="line">    &lt;!--下面是itemj节点,内容包含在一条条item中 --&gt;</div><div class="line">    &lt;item&gt;</div><div class="line">        &lt;title&gt;新闻标题&lt;/title&gt;</div><div class="line">        &lt;link&gt;新闻地址&lt;/link&gt;</div><div class="line">        &lt;description&gt;描述&lt;/description&gt;</div><div class="line">        &lt;author&gt;作者&lt;/author&gt;</div><div class="line">        &lt;category&gt;分类&lt;/category&gt;</div><div class="line">        &lt;comments&gt;评论地址&lt;/comments&gt;</div><div class="line">        &lt;enclosure&gt;附加的媒体对象,包含3个属性url,type,length&lt;/enclosure&gt;</div><div class="line">        &lt;guid&gt;guid&lt;/guid&gt;</div><div class="line">        &lt;pubDate&gt;itme的pubdate,规则如上&lt;/pubDate&gt;</div><div class="line">        &lt;source&gt;频道来源&lt;/source&gt;</div><div class="line">    &lt;/item&gt;</div><div class="line">&lt;/channel&gt;</div><div class="line">&lt;/rss&gt;</div></pre></td></tr></table></figure>
+        <p>这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.<br>前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在<a href="https://github.com/ShaorxCN/goInActionEx/blob/master/fmtTest.go" target="_blank" rel="external">这里</a>~</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">p := person&#123;name:<span class="string">"gkond"</span>&#125;</div><div class="line">s := <span class="string">"gkond"</span></div><div class="line">d :=<span class="number">13</span></div></pre></td></tr></table></figure>
+<p><strong>%v :默认格式输出，打印struct 时%+v 会包含字段名称一起打印:</strong></p>
+<p><code>fmt.Printf(&quot;%v&quot;, p)  //{gkond}</code><br><code>fmt.Printf(&quot;%+v&quot;, p) //{name:gkond}</code></p>
+<p>至于上面说的默认值就是下面这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bool:                    %t</div><div class="line">int, int8 etc.:          %d</div><div class="line">uint, uint8 etc.:        %d, %#x if printed with %#v</div><div class="line">float32, complex64, etc: %g</div><div class="line">string:                  %s</div><div class="line">chan:                    %p</div><div class="line">pointer:                 %p</div></pre></td></tr></table></figure></p>
+<p><strong>%#v:go语法输出指明类型以及值:</strong><br><code>fmt.Printf(&quot;%#v&quot;, p) //main.person{name:&quot;gkond&quot;}</code></p>
+<p><strong>%T :类型打印:</strong><br><code>fmt.Printf(&quot;%T&quot;, p)  //main.person</code></p>
+<p><strong>%% :这是对%的转义输出百分号</strong></p>
+<p><strong>%t :对于bool值:输出true 或者false:</strong><br><code>fmt.Printf(&quot;%t\n&quot;, false) //false,后面可以是bool表达式</code></p>
+<p><strong>%b    对于int类型的值:数值类型二进制表示;对于浮点数:以二为底的科学计数法表示:</strong><br><code>fmt.Printf(&quot;%b\n&quot;, d)      //1101</code><br><code>fmt.Printf(&quot;%b\n&quot;, 1.13)   //5089067578928660p-52(5089067578928660除以2的52次方)</code></p>
+<p><strong>%c :打印int数字对应Unicode编码的值:</strong><br><code>fmt.Printf(&quot;%c\n&quot;, 97)     //a</code></p>
+<p><strong>%d :对于int而言十进制打印:</strong><br><code>fmt.Printf(&quot;%d\n&quot;, d)      //13</code></p>
+<p><strong>%o :八进制:</strong><br><code>fmt.Printf(&quot;%o\n&quot;, d)      //15</code></p>
+<p><strong>%q :integer:单引号包裹的数字对应的字符;String and slice of bytes：双引号包裹的字符串:</strong><br><code>fmt.Printf(&quot;%q\n&quot;, d)  //&#39;\r&#39;</code><br><code>fmt.Printf(&quot;%q\n&quot;, s)  //&quot;13&quot;</code></p>
+<p><strong>%x :integer:16进制，其中a-f位用小写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //d</code><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
+<p><strong>%X :integer:16进制，其中a-f位用大写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //D</code><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
+<p><strong>%U :对于Integer的参数就是将其用Unicode的编码格式展现:</strong><br><code>fmt.Printf(&quot;%U\n&quot;, d) //U+000D</code></p>
+<p><strong>%e :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是小写的:</strong><br><code>fmt.Printf(&quot;%e\n&quot;, 11.13) //1.113000e+01</code></p>
+<p><strong>%E :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是大写的:</strong><br><code>fmt.Printf(&quot;%E\n&quot;, 11.13) //1.113000E+01</code></p>
+<p><strong>%f/%F :浮点数没有指数的小数形式展示(小数点后面6位%.6f):</strong><br><code>fmt.Printf(&quot;%f\n&quot;, 11.13) //11.130000</code><br><code>fmt.Printf(&quot;%F\n&quot;, 11.13) //11.130000</code></p>
+<p><strong>%g/%G :最少位数的展示</strong><br><code>fmt.Printf(&quot;%g\n&quot;, 11.13) //11.13</code><br><code>fmt.Printf(&quot;%G\n&quot;, 11.13) //11.13</code></p>
+<p><strong>%s :就是直接输出string或者slice的值:</strong><br><code>fmt.Printf(&quot;%s\n&quot;, s)     //13</code></p>
+<p><strong>%p: 0x开头的16进制表示的指针:</strong><br><code>fmt.Printf(&quot;%p\n&quot;, &amp;s)    //0xc04203e1d0</code></p>
+<p><strong>还有就是复合类型的展示形式:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span>:             &#123;field0 field1 ...&#125;</div><div class="line">array, slice:       [elem0 elem1 ...]</div><div class="line">maps:               <span class="keyword">map</span>[key1:value1 key2:value2]</div><div class="line">pointer to above:   &amp;&#123;&#125;, &amp;[], &amp;<span class="keyword">map</span>[]</div></pre></td></tr></table></figure></p>
+<p><strong>浮点数指定精度的表示,长度限制，小数点后面的指的是小数占几位，精度可以丢失但是整数部分不会变少:</strong></p>
+<p><code>fmt.Printf(&quot;start%9.5fend\n&quot;, 1.13)   //start  1.13000end</code><br><code>fmt.Printf(&quot;start%.1fend\n&quot;, 1.13)    //start1.1end</code><br><code>fmt.Printf(&quot;start%3.fend\n&quot;, 1111.13) //start1111end</code></p>
+<p>还有就是一些扩展符号</p>
+<p><strong>+:总是打印数值的符号,而字符则是要正常输出:</strong></p>
+<p><code>fmt.Printf(&quot;%+d\n&quot;, d) //+13</code><br><code>fmt.Printf(&quot;%+q\n&quot;, s) //&quot;13&quot;</code></p>
+<p><strong>-:其实就是左对齐，在右边补空格嘛:</strong><br><code>fmt.Printf(&quot;start%-9.5fend\n&quot;, 1.13) //start1.13000  end</code></p>
+<p><strong>#:八进制，16进制增加前缀，指针则是去掉前缀,对于字符串slice则是反引号(``)包含，当然前提是可以这样展示的:</strong></p>
+<p><strong>‘ ‘: 这里其实是说的空格,仍然指的是填充空格占位</strong></p>
+<p><code>fmt.Printf(&quot;start% d\n&quot;, d) //start 13</code><br><code>fmt.Printf(&quot;% X\n&quot;, s)      //31 33</code></p>
+<p><strong>0:0代替空格占位，对于数字在符号位后面填充:</strong></p>
+<p><code>fmt.Printf(&quot;%09.5f\n&quot;, 1.13) //001.13000</code></p>
 
       
     </div>
@@ -332,7 +365,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/RSS/" rel="tag">#RSS</a>
+            <a href="/tags/Golang/" rel="tag">#Golang</a>
           
         </div>
       
@@ -341,17 +374,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/01/golang建站-1/" rel="next" title="Golang建站(1)">
-                <i class="fa fa-chevron-left"></i> Golang建站(1)
+              <a href="/2017/03/20/goInActionNote-4/" rel="next" title="数组切片和映射">
+                <i class="fa fa-chevron-left"></i> 数组切片和映射
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/14/goInActionNote-2/" rel="prev" title="goInActionNote(2)">
-                goInActionNote(2) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -476,7 +505,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tip1-channel-不支持跨goroutine-的安全保证-值传递自然对数据副本的操作是安全的-指针传递的需自己完成锁保证"><span class="nav-number">1.</span> <span class="nav-text">tip1 channel 不支持跨goroutine 的安全保证.值传递自然对数据副本的操作是安全的.指针传递的需自己完成锁保证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型系统"><span class="nav-number"></span> <span class="nav-text">类型系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter2-RSS"><span class="nav-number"></span> <span class="nav-text">chapter2 RSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSS格式介绍"><span class="nav-number">1.</span> <span class="nav-text">RSS格式介绍</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

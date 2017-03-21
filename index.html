@@ -248,6 +248,326 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/21/fmt格式简介/" itemprop="url">
+                  fmt格式简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-21T20:18:06+08:00" content="2017-03-21">
+              2017-03-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Golang杂记/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang杂记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.<br>前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在<a href="https://github.com/ShaorxCN/goInActionEx/blob/master/fmtTest.go" target="_blank" rel="external">这里</a>~</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">p := person&#123;name:<span class="string">"gkond"</span>&#125;</div><div class="line">s := <span class="string">"gkond"</span></div><div class="line">d :=<span class="number">13</span></div></pre></td></tr></table></figure>
+<p><strong>%v :默认格式输出，打印struct 时%+v 会包含字段名称一起打印:</strong></p>
+<p><code>fmt.Printf(&quot;%v&quot;, p)  //{gkond}</code><br><code>fmt.Printf(&quot;%+v&quot;, p) //{name:gkond}</code></p>
+<p>至于上面说的默认值就是下面这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bool:                    %t</div><div class="line">int, int8 etc.:          %d</div><div class="line">uint, uint8 etc.:        %d, %#x if printed with %#v</div><div class="line">float32, complex64, etc: %g</div><div class="line">string:                  %s</div><div class="line">chan:                    %p</div><div class="line">pointer:                 %p</div></pre></td></tr></table></figure></p>
+<p><strong>%#v:go语法输出指明类型以及值:</strong><br><code>fmt.Printf(&quot;%#v&quot;, p) //main.person{name:&quot;gkond&quot;}</code></p>
+<p><strong>%T :类型打印:</strong><br><code>fmt.Printf(&quot;%T&quot;, p)  //main.person</code></p>
+<p><strong>%% :这是对%的转义输出百分号</strong></p>
+<p><strong>%t :对于bool值:输出true 或者false:</strong><br><code>fmt.Printf(&quot;%t\n&quot;, false) //false,后面可以是bool表达式</code></p>
+<p><strong>%b    对于int类型的值:数值类型二进制表示;对于浮点数:以二为底的科学计数法表示:</strong><br><code>fmt.Printf(&quot;%b\n&quot;, d)      //1101</code><br><code>fmt.Printf(&quot;%b\n&quot;, 1.13)   //5089067578928660p-52(5089067578928660除以2的52次方)</code></p>
+<p><strong>%c :打印int数字对应Unicode编码的值:</strong><br><code>fmt.Printf(&quot;%c\n&quot;, 97)     //a</code></p>
+<p><strong>%d :对于int而言十进制打印:</strong><br><code>fmt.Printf(&quot;%d\n&quot;, d)      //13</code></p>
+<p><strong>%o :八进制:</strong><br><code>fmt.Printf(&quot;%o\n&quot;, d)      //15</code></p>
+<p><strong>%q :integer:单引号包裹的数字对应的字符;String and slice of bytes：双引号包裹的字符串:</strong><br><code>fmt.Printf(&quot;%q\n&quot;, d)  //&#39;\r&#39;</code><br><code>fmt.Printf(&quot;%q\n&quot;, s)  //&quot;13&quot;</code></p>
+<p><strong>%x :integer:16进制，其中a-f位用小写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //d</code><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
+<p><strong>%X :integer:16进制，其中a-f位用大写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //D</code><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
+<p><strong>%U :对于Integer的参数就是将其用Unicode的编码格式展现:</strong><br><code>fmt.Printf(&quot;%U\n&quot;, d) //U+000D</code></p>
+<p><strong>%e :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是小写的:</strong><br><code>fmt.Printf(&quot;%e\n&quot;, 11.13) //1.113000e+01</code></p>
+<p><strong>%E :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是大写的:</strong><br><code>fmt.Printf(&quot;%E\n&quot;, 11.13) //1.113000E+01</code></p>
+<p><strong>%f/%F :浮点数没有指数的小数形式展示(小数点后面6位%.6f):</strong><br><code>fmt.Printf(&quot;%f\n&quot;, 11.13) //11.130000</code><br><code>fmt.Printf(&quot;%F\n&quot;, 11.13) //11.130000</code></p>
+<p><strong>%g/%G :最少位数的展示</strong><br><code>fmt.Printf(&quot;%g\n&quot;, 11.13) //11.13</code><br><code>fmt.Printf(&quot;%G\n&quot;, 11.13) //11.13</code></p>
+<p><strong>%s :就是直接输出string或者slice的值:</strong><br><code>fmt.Printf(&quot;%s\n&quot;, s)     //13</code></p>
+<p><strong>%p: 0x开头的16进制表示的指针:</strong><br><code>fmt.Printf(&quot;%p\n&quot;, &amp;s)    //0xc04203e1d0</code></p>
+<p><strong>还有就是复合类型的展示形式:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span>:             &#123;field0 field1 ...&#125;</div><div class="line">array, slice:       [elem0 elem1 ...]</div><div class="line">maps:               <span class="keyword">map</span>[key1:value1 key2:value2]</div><div class="line">pointer to above:   &amp;&#123;&#125;, &amp;[], &amp;<span class="keyword">map</span>[]</div></pre></td></tr></table></figure></p>
+<p><strong>浮点数指定精度的表示,长度限制，小数点后面的指的是小数占几位，精度可以丢失但是整数部分不会变少:</strong></p>
+<p><code>fmt.Printf(&quot;start%9.5fend\n&quot;, 1.13)   //start  1.13000end</code><br><code>fmt.Printf(&quot;start%.1fend\n&quot;, 1.13)    //start1.1end</code><br><code>fmt.Printf(&quot;start%3.fend\n&quot;, 1111.13) //start1111end</code></p>
+<p>还有就是一些扩展符号</p>
+<p><strong>+:总是打印数值的符号,而字符则是要正常输出:</strong></p>
+<p><code>fmt.Printf(&quot;%+d\n&quot;, d) //+13</code><br><code>fmt.Printf(&quot;%+q\n&quot;, s) //&quot;13&quot;</code></p>
+<p><strong>-:其实就是左对齐，在右边补空格嘛:</strong><br><code>fmt.Printf(&quot;start%-9.5fend\n&quot;, 1.13) //start1.13000  end</code></p>
+<p><strong>#:八进制，16进制增加前缀，指针则是去掉前缀,对于字符串slice则是反引号(``)包含，当然前提是可以这样展示的:</strong></p>
+<p><strong>‘ ‘: 这里其实是说的空格,仍然指的是填充空格占位</strong></p>
+<p><code>fmt.Printf(&quot;start% d\n&quot;, d) //start 13</code><br><code>fmt.Printf(&quot;% X\n&quot;, s)      //31 33</code></p>
+<p><strong>0:0代替空格占位，对于数字在符号位后面填充:</strong></p>
+<p><code>fmt.Printf(&quot;%09.5f\n&quot;, 1.13) //001.13000</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/20/goInActionNote-4/" itemprop="url">
+                  数组切片和映射
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-20T19:11:10+08:00" content="2017-03-20">
+              2017-03-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/GoInAction笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">GoInAction笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>数组,切片,映射指的就是array,slice和map这三种类型.其中有部分第三章的内容在这里先做个记录.</p>
+<ul>
+<li>对于中文字符,utf8字符串的处理.可以转换为[]rune.这样可以遍历出完整的字符<br> 而不是字节</li>
+<li>go doc指令的一个扩充,生成web页面查看 <strong>godoc -http=:6060</strong>访问本地的6060端口即可</li>
+<li>接下来是第四章的一些记录(基于golang1.7)</li>
+</ul>
+<h2 id="数组-array"><a href="#数组-array" class="headerlink" title="数组(array)"></a>数组(array)</h2><p>Go的数组的定义规范和java类似,是一个长度固定的数据类型,存储的数据必须是类型一致的.<br>其存储在一段连续的内存区间,所以读取快速.</p>
+<h3 id="声明和初始化"><a href="#声明和初始化" class="headerlink" title="声明和初始化"></a>声明和初始化</h3><p>声明方法:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> array [<span class="number">5</span>]<span class="keyword">int</span></div></pre></td></tr></table></figure></p>
+<p>这是声明了一个长度为5的int数组.编译器会根据其类型做相应的初始化.比如这里数组里存储的就是int的零值 0.在后续的代码里我们可以对其做赋值操作.当然也可以声明时初始化:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</div></pre></td></tr></table></figure></p>
+<p>这里就是在声明时初始化.其中长度表示那里的三个点是代表由Go根据初始化时的值自己计算长度.还有一种指定下标的初始化方法:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">99</span>:<span class="number">99</span>&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的代码就是声明了一个长度为100的int数组,其中下标为99的元素的值就是99,其他则是默认的0</p>
+<p>至于数组的处理则可以通过下标索引操作.比如赋值<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array[<span class="number">1</span>] = <span class="number">22</span></div></pre></td></tr></table></figure></p>
+<p><strong>长度以及类型一致</strong>的数组可以相互赋值</p>
+<p>书里还提到了指针数组.<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">array := [<span class="number">5</span>]*<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="built_in">new</span>(<span class="keyword">int</span>),<span class="number">1</span>:<span class="built_in">new</span>(<span class="keyword">int</span>)&#125;</div></pre></td></tr></table></figure></p>
+<p>这里声明了一个长度为5的int指针的数组.而通过<code>*</code>操作符则可以操作指针指向的值<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*array[<span class="number">0</span>] = <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>这里还用到了new().这里记下make和new的区别<br><strong>make</strong>:用来初始化map,slice,channel.返回的就是初始化后的对象而不是指针.其会根据类型赋予类型对应的零值</p>
+<p><strong>new</strong>:这个可以用于任何结构,但是只是声明空间返回指针,内部并不会做初始化.</p>
+<h2 id="切片-slice"><a href="#切片-slice" class="headerlink" title="切片(slice)"></a>切片(slice)</h2><p>切片是建立在数组之上的数据结构,其内部存储了指向底层数组的指针,长度以及容量.<br>长度是指得当前slice中元素个数(可以通过len()获得),容量则是在创建slice时指定的长度上限(通过cap()可以获得).</p>
+<h3 id="声明以及初始化"><a href="#声明以及初始化" class="headerlink" title="声明以及初始化"></a>声明以及初始化</h3><p>上面有提到make()创建并初始化slice.具体语法是:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">3</span>,<span class="number">5</span>)</div></pre></td></tr></table></figure></p>
+<p>这就是创建了一个长度为3,容量为5的切片.容量参数未设置默认与长度相同(当然容量必须大于等于长度).当然也可以和数组一样通过字面量创建或者基于数组创建<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</div><div class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>&#125;<span class="comment">//长度和容量都是3,这里也可以用和上面类似的指定下标的方式</span></div><div class="line">sliceA := array[:<span class="number">3</span>]<span class="comment">//基于数组创建,包头不包尾,长度为3,cap为6(就是slice头元素到数组尾部的长度)</span></div></pre></td></tr></table></figure></p>
+<p>切片的操作和数组其实是一样的,通过下标索引.也可以在切片的基础上再建切片.<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</div><div class="line">slicet :=slice[:<span class="number">3</span>]<span class="comment">//:前后代表上界和下界.省略表示从0开始或者直到末尾</span></div></pre></td></tr></table></figure></p>
+<p>不过这里在操作slice的时候实际操作的是底层数组,因为slice是基于底层数组的结构,而且内部存储的是指针.所以一个slice修改了之后会影响到其他所有共用一个底层数组的slice.</p>
+<p>append扩充:利用函数append()可以修改slice的结构,比如尾部追加元素<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slice = <span class="built_in">append</span>(slice,<span class="number">1</span>)<span class="comment">//尾部追加int元素1</span></div></pre></td></tr></table></figure></p>
+<p>这里在容量(cap)可以容纳下新增元素的时候,slice的底层数组和cap是不会变化的,只是长度追加1.并且会修改底层数组对应下标的元素值:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;</div><div class="line">slice := array[:<span class="number">2</span>]<span class="comment">//slice:&#123;0,1&#125; len :2,cap:6</span></div><div class="line">slice = <span class="built_in">append</span>(slice,<span class="number">6</span>)<span class="comment">//slice:&#123;0,1,6&#125; len:3,cap:6</span></div><div class="line"><span class="comment">//但是array:&#123;0,1,6,3,4,5&#125;</span></div></pre></td></tr></table></figure></p>
+<p>而当cap本身不能容纳元素时则会新建底层数组并将元素复制到新数组中,在新数组的基础上建立slice.至于新建扩容的问题,因为版本不同会出现不同的结果,1.6上测试是扩容后的长度的2倍作为新的cap(windows7 32bit),1.7则是原cap的2倍作为新的cap(debian 3.16 64bit)</p>
+<p>当然append的用法很多比如删除slice中的一部分元素<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slice = <span class="built_in">append</span>(slice[:<span class="number">3</span>],slice[<span class="number">4</span>:]...)<span class="comment">//去掉下标为3的元素,注意第二个参数的...这是代表将slice元素拆开传入,否将会报错,类型不符合</span></div></pre></td></tr></table></figure></p>
+<p>还有就是在建立slice的第三个参数的作用,指定cap的上限,可以保证底层数组的安全以及隐藏<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;</div><div class="line">slice2 := slice[:<span class="number">3</span>]<span class="comment">//0,1,2</span></div><div class="line">slice3 := slice2[:<span class="built_in">cap</span>(slice2)]<span class="comment">//&#123;0,1,2,3,4,5,6&#125;扩容获取到本不应该取到的3,4,5,6</span></div><div class="line"></div><div class="line">slice4 := slice[:<span class="number">3</span>:<span class="number">3</span>]<span class="comment">//0,1,2.cap是3.最后的三表示其cap之是开头到数组下标为3的地方</span></div><div class="line">slice3 = slice4[:<span class="built_in">cap</span>(slice4)]<span class="comment">//0,1,2</span></div></pre></td></tr></table></figure></p>
+<p>slice部分,书里还提到了nil切片和空切片,nil切片指的是未初始化的,只声明的.空切片则是没有内容的<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span><span class="comment">//nil这里你在slice == nil是true,和数组是不一样的</span></div><div class="line"><span class="comment">//空切片 slice == nil :false</span></div><div class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</div><div class="line">    or</div><div class="line">slice := []<span class="keyword">int</span>&#123;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="slice的迭代"><a href="#slice的迭代" class="headerlink" title="slice的迭代"></a>slice的迭代</h3><p>可以通过传统的for循环迭代.<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i := <span class="number">0</span>;i&lt;<span class="built_in">len</span>(slice);i++&#123;</div><div class="line">    log.Println(i,slice[i])</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外还有for range迭代切片<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;</div><div class="line"><span class="comment">//在之前的记录中提到for range 提供的是元素副本</span></div><div class="line"><span class="keyword">for</span> index,value := <span class="keyword">range</span> slice&#123;</div><div class="line">    fmt.Printf(<span class="string">"Index:%d,Value:%d,ValueAddr:%x,ElementAddr:%x \n"</span>,index,value,&amp;value,&amp;slice[index])</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里的格式化标识符可以<code>go doc fmt</code>在文档中看到,另外也有简单整理在<a href="">这里</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//结果如下</div><div class="line">Index:0,Value:0,ValueAddr:c420072320,ElementAddr:c42007a140 </div><div class="line">Index:1,Value:1,ValueAddr:c420072320,ElementAddr:c42007a148 </div><div class="line">Index:2,Value:2,ValueAddr:c420072320,ElementAddr:c42007a150 </div><div class="line">Index:3,Value:3,ValueAddr:c420072320,ElementAddr:c42007a158 </div><div class="line">Index:4,Value:4,ValueAddr:c420072320,ElementAddr:c42007a160 </div><div class="line">Index:5,Value:5,ValueAddr:c420072320,ElementAddr:c42007a168 </div><div class="line">Index:6,Value:6,ValueAddr:c420072320,ElementAddr:c42007a170</div></pre></td></tr></table></figure>
+<p>这里主要提两点:</p>
+<ul>
+<li>value的地址是同一个也就是每次迭代覆盖之前的值,这个在闭包一类的用法中需要注意</li>
+<li>就是上面说的for range 中value提供的是元素值的副本</li>
+</ul>
+<p>至于书里提到的多维切片,类比数组即可</p>
+<h2 id="映射-map"><a href="#映射-map" class="headerlink" title="映射(map)"></a>映射(map)</h2><h3 id="创建以及初始化"><a href="#创建以及初始化" class="headerlink" title="创建以及初始化"></a>创建以及初始化</h3><ul>
+<li>make关键字:<code>dict := make(map[string]int)</code></li>
+<li>字面量初始化 <code>dict := map[string]int{&quot;first&quot;:1,&quot;second&quot;:2}</code></li>
+</ul>
+<blockquote>
+<p>仍然使用len()来获取map的长度,map的键需要是可以==操作的,且引用语义的不能作为key</p>
+</blockquote>
+<h4 id="nil映射和空映射"><a href="#nil映射和空映射" class="headerlink" title="nil映射和空映射"></a>nil映射和空映射</h4><p>nil映射:var mapE map[int]string.这里==nil是true<br>空映射:上面的make以及这样操作的就是空映射<code>dict := map[int]string{}</code> ==nil自然是false</p>
+<h3 id="map的迭代以及使用"><a href="#map的迭代以及使用" class="headerlink" title="map的迭代以及使用"></a>map的迭代以及使用</h3><p>以key为索引操作,比如赋值:dict[1] = “one”</p>
+<blockquote>
+<p>对nil映射赋值是会报错的</p>
+</blockquote>
+<p>迭代使用for range:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> key,value := <span class="keyword">range</span> dict&#123;</div><div class="line">    log.Printf(<span class="string">"key:%d,value:%s\n"</span>,key,value)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>书里还提到了判断map中某个元素是否存在:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">value,exist := dict[key]</div><div class="line"><span class="comment">//其中exist是bool类型,存在则返回value,true,不存在则返回类型的零值以及false</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这种方式是可以在nil映射上操作的.另一种方式不推荐,即只有value返回值,这就无法判断零值是确实存储在map中的还是不存在的.</p>
+</blockquote>
+<p>删除map中的元素:delete(dict,key).</p>
+<blockquote>
+<p>和slice一样,map也具有引用语义,所以在方法中传递map需要注意,一处修改,处处可见.delete仅用于map</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/19/golang-xml解析/" itemprop="url">
                   golang xml解析
                 </a>
@@ -1059,7 +1379,7 @@ deploy:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1067,7 +1387,7 @@ deploy:
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
