@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
-1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
+<meta name="description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fmt格式简介">
-<meta property="og:url" content="http://yoursite.com/2017/03/21/fmt格式简介/index.html">
+<meta property="og:title" content="groupcache尝试">
+<meta property="og:url" content="http://yoursite.com/2017/05/15/groupcache尝试/index.html">
 <meta property="og:site_name" content="GO!">
-<meta property="og:description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
-1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
-<meta property="og:updated_time" content="2017-03-21T15:13:02.000Z">
+<meta property="og:description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
+<meta property="og:updated_time" content="2017-05-15T15:06:10.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="fmt格式简介">
-<meta name="twitter:description" content="这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在这里~
-1234567type person struct&amp;#123;    name string&amp;#125;p := person&amp;#123;name:&quot;gkond&quot;&amp;#125;s := &quot;gkond&quot;d :=">
+<meta name="twitter:title" content="groupcache尝试">
+<meta name="twitter:description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
 
 
 
@@ -117,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/21/fmt格式简介/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/15/groupcache尝试/"/>
 
-  <title> fmt格式简介 | GO! </title>
+  <title> groupcache尝试 | GO! </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -249,7 +249,7 @@
             
             
               
-                fmt格式简介
+                groupcache尝试
               
             
           </h1>
@@ -261,8 +261,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2017-03-21T20:18:06+08:00" content="2017-03-21">
-              2017-03-21
+            <time itemprop="dateCreated" datetime="2017-05-15T22:41:09+08:00" content="2017-05-15">
+              2017-05-15
             </time>
           </span>
 
@@ -275,8 +275,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Golang杂记/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang杂记</span>
+                  <a href="/categories/groupcache/" itemprop="url" rel="index">
+                    <span itemprop="name">groupcache</span>
                   </a>
                 </span>
 
@@ -308,41 +308,9 @@
       
 
       
-        <p>这里简单介绍下fmt中格式化的标识，其实go doc fmt开头部分已经有详细的介绍，这里整理以下供自己快速复习查阅.<br>前提给部分变量,本来不打算附代码的，结果发现还是很多的，所以，示例在<a href="https://github.com/ShaorxCN/goInActionEx/blob/master/fmtTest.go" target="_blank" rel="external">这里</a>~</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">p := person&#123;name:<span class="string">"gkond"</span>&#125;</div><div class="line">s := <span class="string">"gkond"</span></div><div class="line">d :=<span class="number">13</span></div></pre></td></tr></table></figure>
-<p><strong>%v :默认格式输出，打印struct 时%+v 会包含字段名称一起打印:</strong></p>
-<p><code>fmt.Printf(&quot;%v&quot;, p)  //{gkond}</code><br><code>fmt.Printf(&quot;%+v&quot;, p) //{name:gkond}</code></p>
-<p>至于上面说的默认值就是下面这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">bool:                    %t</div><div class="line">int, int8 etc.:          %d</div><div class="line">uint, uint8 etc.:        %d, %#x if printed with %#v</div><div class="line">float32, complex64, etc: %g</div><div class="line">string:                  %s</div><div class="line">chan:                    %p</div><div class="line">pointer:                 %p</div></pre></td></tr></table></figure></p>
-<p><strong>%#v:go语法输出指明类型以及值:</strong><br><code>fmt.Printf(&quot;%#v&quot;, p) //main.person{name:&quot;gkond&quot;}</code></p>
-<p><strong>%T :类型打印:</strong><br><code>fmt.Printf(&quot;%T&quot;, p)  //main.person</code></p>
-<p><strong>%% :这是对%的转义输出百分号</strong></p>
-<p><strong>%t :对于bool值:输出true 或者false:</strong><br><code>fmt.Printf(&quot;%t\n&quot;, false) //false,后面可以是bool表达式</code></p>
-<p><strong>%b    对于int类型的值:数值类型二进制表示;对于浮点数:以二为底的科学计数法表示:</strong><br><code>fmt.Printf(&quot;%b\n&quot;, d)      //1101</code><br><code>fmt.Printf(&quot;%b\n&quot;, 1.13)   //5089067578928660p-52(5089067578928660除以2的52次方)</code></p>
-<p><strong>%c :打印int数字对应Unicode编码的值:</strong><br><code>fmt.Printf(&quot;%c\n&quot;, 97)     //a</code></p>
-<p><strong>%d :对于int而言十进制打印:</strong><br><code>fmt.Printf(&quot;%d\n&quot;, d)      //13</code></p>
-<p><strong>%o :八进制:</strong><br><code>fmt.Printf(&quot;%o\n&quot;, d)      //15</code></p>
-<p><strong>%q :integer:单引号包裹的数字对应的字符;String and slice of bytes：双引号包裹的字符串:</strong><br><code>fmt.Printf(&quot;%q\n&quot;, d)  //&#39;\r&#39;</code><br><code>fmt.Printf(&quot;%q\n&quot;, s)  //&quot;13&quot;</code></p>
-<p><strong>%x :integer:16进制，其中a-f位用小写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //d</code><br><code>fmt.Printf(&quot;%x\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
-<p><strong>%X :integer:16进制，其中a-f位用大写的表示;String and slice of bytes :就是将字符对应的编码用16进制表示，每个字节2个字符:</strong><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //D</code><br><code>fmt.Printf(&quot;%X\n&quot;, d)      //3133 ,31就是49的16进制表示，对应1</code></p>
-<p><strong>%U :对于Integer的参数就是将其用Unicode的编码格式展现:</strong><br><code>fmt.Printf(&quot;%U\n&quot;, d) //U+000D</code></p>
-<p><strong>%e :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是小写的:</strong><br><code>fmt.Printf(&quot;%e\n&quot;, 11.13) //1.113000e+01</code></p>
-<p><strong>%E :对于浮点数就是用我们常用的科学计数法表示，e也就是10为底的,好吧，还有就是e是大写的:</strong><br><code>fmt.Printf(&quot;%E\n&quot;, 11.13) //1.113000E+01</code></p>
-<p><strong>%f/%F :浮点数没有指数的小数形式展示(小数点后面6位%.6f):</strong><br><code>fmt.Printf(&quot;%f\n&quot;, 11.13) //11.130000</code><br><code>fmt.Printf(&quot;%F\n&quot;, 11.13) //11.130000</code></p>
-<p><strong>%g/%G :最少位数的展示</strong><br><code>fmt.Printf(&quot;%g\n&quot;, 11.13) //11.13</code><br><code>fmt.Printf(&quot;%G\n&quot;, 11.13) //11.13</code></p>
-<p><strong>%s :就是直接输出string或者slice的值:</strong><br><code>fmt.Printf(&quot;%s\n&quot;, s)     //13</code></p>
-<p><strong>%p: 0x开头的16进制表示的指针:</strong><br><code>fmt.Printf(&quot;%p\n&quot;, &amp;s)    //0xc04203e1d0</code></p>
-<p><strong>还有就是复合类型的展示形式:</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span>:             &#123;field0 field1 ...&#125;</div><div class="line">array, slice:       [elem0 elem1 ...]</div><div class="line">maps:               <span class="keyword">map</span>[key1:value1 key2:value2]</div><div class="line">pointer to above:   &amp;&#123;&#125;, &amp;[], &amp;<span class="keyword">map</span>[]</div></pre></td></tr></table></figure></p>
-<p><strong>浮点数指定精度的表示,长度限制，小数点后面的指的是小数占几位，精度可以丢失但是整数部分不会变少:</strong></p>
-<p><code>fmt.Printf(&quot;start%9.5fend\n&quot;, 1.13)   //start  1.13000end</code><br><code>fmt.Printf(&quot;start%.1fend\n&quot;, 1.13)    //start1.1end</code><br><code>fmt.Printf(&quot;start%3.fend\n&quot;, 1111.13) //start1111end</code></p>
-<p>还有就是一些扩展符号</p>
-<p><strong>+:总是打印数值的符号,而字符则是要正常输出:</strong></p>
-<p><code>fmt.Printf(&quot;%+d\n&quot;, d) //+13</code><br><code>fmt.Printf(&quot;%+q\n&quot;, s) //&quot;13&quot;</code></p>
-<p><strong>-:其实就是左对齐，在右边补空格嘛:</strong><br><code>fmt.Printf(&quot;start%-9.5fend\n&quot;, 1.13) //start1.13000  end</code></p>
-<p><strong>#:八进制，16进制增加前缀，指针则是去掉前缀,对于字符串slice则是反引号(``)包含，当然前提是可以这样展示的:</strong></p>
-<p><strong>‘ ‘: 这里其实是说的空格,仍然指的是填充空格占位</strong></p>
-<p><code>fmt.Printf(&quot;start% d\n&quot;, d) //start 13</code><br><code>fmt.Printf(&quot;% X\n&quot;, s)      //31 33</code></p>
-<p><strong>0:0代替空格占位，对于数字在符号位后面填充:</strong></p>
-<p><code>fmt.Printf(&quot;%09.5f\n&quot;, 1.13) //001.13000</code></p>
+        <p>最近准备尝试下groupcache，所以写了个<a href="https://github.com/ShaorxCN/blogCode/tree/master/groupcachetest" target="_blank" rel="external">demo</a>.并在这里记录下，以备后面查漏补缺</p>
+<p>这里仅仅记录下重要的几个方法吧<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口</span></div><div class="line"><span class="comment">//默认地址是/_groupcache/groupName/keyValue</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewHTTPPool</span><span class="params">(self <span class="keyword">string</span>)</span> *<span class="title">HTTPPool</span></span></div><div class="line"></div><div class="line">//更新<span class="title">httppool</span>,设置<span class="title">peers</span>来相互通信，如果启动的节点和这里<span class="title">set</span>的不一致的话就无法在<span class="title">peers</span>之间通信</div><div class="line"><span class="title">func</span> <span class="params">(p *HTTPPool)</span> <span class="title">Set</span><span class="params">(peers ...<span class="keyword">string</span>)</span></div><div class="line"></div><div class="line"></div><div class="line">//创建一个<span class="title">group</span>,<span class="title">groupcache</span>对数据的操作其实是围绕<span class="title">group</span>来做的<span class="params">(HTTPPool是为了实现分布式)</span></div><div class="line">//参数分别为<span class="title">groupName</span>,缓存大小，当缓存不存在时从<span class="title">slowDb</span>获取数据的<span class="title">getter</span>方法</div><div class="line"><span class="title">func</span> <span class="title">NewGroup</span><span class="params">(name <span class="keyword">string</span>, cacheBytes <span class="keyword">int64</span>, getter Getter)</span> *<span class="title">Group</span></div><div class="line"></div><div class="line">//从对应的<span class="title">group</span>中获取<span class="title">key</span>的方法。还有什么<span class="title">Name</span>一类的就不提了</div><div class="line"><span class="title">func</span> <span class="params">(g *Group)</span> <span class="title">Get</span><span class="params">(ctx Context, key <span class="keyword">string</span>, dest Sink)</span> <span class="title">error</span></div></pre></td></tr></table></figure></p>
+<p>不过groupcache和memcache是不一样的，他无法更新缓存。所以比较适合一些例如资源下载的情况?现在工作中很少有适合他的使用场景，所以也不是很了解。仅有的一个应该是之前写的影像控件补丁下载的功能.</p>
 
       
     </div>
@@ -374,17 +342,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/20/goInActionNote-4/" rel="next" title="数组切片和映射">
-                <i class="fa fa-chevron-left"></i> 数组切片和映射
+              <a href="/2017/05/02/理解golang的context包/" rel="next" title="理解golang的context包">
+                <i class="fa fa-chevron-left"></i> 理解golang的context包
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/05/golang知乎爬虫小试/" rel="prev" title="golang知乎爬虫小试">
-                golang知乎爬虫小试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
