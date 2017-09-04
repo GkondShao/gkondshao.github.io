@@ -248,6 +248,138 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/20/golang-Package-reflect简单了解（1）/" itemprop="url">
+                  golang:package reflect简单了解（1）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-20T14:55:16+08:00" content="2016-09-20">
+              2016-09-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Golang学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>golang版本:go1.7rc1 linux/amd64<br>大概看了下reflect的用法。记录已备后续查看.</p>
+<h1 id="reflect大概"><a href="#reflect大概" class="headerlink" title="reflect大概"></a>reflect大概</h1><h2 id="类型与方法"><a href="#类型与方法" class="headerlink" title="类型与方法"></a>类型与方法</h2><p>通过go doc reflect包可以发现其中我们最常用的一个<code>type Type interface</code>和一个<code>type Value struct</code></p>
+<p>通过以下两个方法可以获取到他们<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">TypeOf</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Type</span></span></div><div class="line"><span class="title">func</span> <span class="title">ValueOf</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Value</span></div></pre></td></tr></table></figure></p>
+<p>可以看出在使用上面两个方法的时候是有将参数做空接口处理转换的。</p>
+<p><code>reflect.Type</code>是指的变量的类型。其中<code>reflect.Type</code>规定了很多的方法。<br><code>reflect.Value</code>是指的变量值的相关信息.并提供了方法供我们使用查询。</p>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><h3 id="reflect-Type"><a href="#reflect-Type" class="headerlink" title="reflect.Type"></a>reflect.Type</h3><p>首先是<code>reflect.Type</code>。最简单的自然是获取目标的类型。上面的<code>TypeOf</code>就可以直接返回目标的类型。但是其返回的是最浅层的类型。相当与<code>var type x</code><br>他返回的就是type。申明的什么返回什么。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> sepString <span class="keyword">string</span></div><div class="line"><span class="keyword">var</span> s sepString = <span class="string">"abc"</span></div></pre></td></tr></table></figure></p>
+<p>这时候：<br><code>reflect.TypeOf</code>返回的就是sepString.当然前缀是你定义type的包名。<br>如果想要获取其底层的数据类型则需要使用Kind()方法<br><code>reflect.TypeOf(s).Kind()</code>返回的就是string.</p>
+<p>对于<code>struct</code>其返回的自然是定义的结构提名称<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> testStruct <span class="keyword">struct</span> &#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">    Num  <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    v := testStruct&#123;name: <span class="string">"test"</span>, Num: <span class="number">1</span>&#125;</div><div class="line">    fmt.Println(reflect.TypeOf(v)) <span class="comment">//main.testStruct</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="reflect-Value"><a href="#reflect-Value" class="headerlink" title="reflect.Value"></a>reflect.Value</h3><p>通过<code>reflect.ValueOf</code>返回该值。其表示了目标的值。在<code>reflect</code>包中为其提供了众多的方法供我们使用。部分方法如下说明。</p>
+<p>Type()返回reflect.Value的Type。同样返回的是申明类型。参考<code>reflect.TypeOf</code></p>
+<p>Kind()返回底层的类型</p>
+<p>interface()返回还原值</p>
+<p>Elem()返回interface或者pointer的值。</p>
+<p>其中Elem()涉及到通过反射修改目标值。首先修改目标值必须是修改其本身，就和<code>interface</code>的实现一样。判断是否实现接口时对于reciever是否是指针类型是十分严格的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">Elem returns the value that the interface v contains or that the pointer v</div><div class="line">points to. It panics if v's Kind is not Interface or Ptr. It returns the</div><div class="line">zero Value if v is nil.</div><div class="line">*/</div><div class="line"><span class="comment">//func (v Value) Elem() Value</span></div><div class="line"></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span>(</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">)</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">type</span> st <span class="keyword">string</span></div><div class="line">    <span class="keyword">var</span> s st = <span class="string">"abc"</span></div><div class="line">    v := reflect.ValueOf(s)</div><div class="line">    v2 := reflect.ValueOf(&amp;s)<span class="comment">//通过指针获取其本身。地址获取</span></div><div class="line"></div><div class="line">    fmt.Println(v.CanSet()) <span class="comment">//false</span></div><div class="line">    <span class="comment">//fmt.Println(v.Elem().CanSet())</span></div><div class="line"></div><div class="line">    fmt.Println(v2.CanSet())        <span class="comment">//false</span></div><div class="line">    fmt.Println(v2.Elem().CanSet()) <span class="comment">//true</span></div><div class="line"></div><div class="line">    v2.Elem().SetString(<span class="string">"cba"</span>)</div><div class="line">    fmt.Println(s)<span class="comment">//cba</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>就像上面代码写的一样，主要是通过指针获取。还有就是通过reflect.Value.Elem()方法获取reflect.Value的值。最上面的Elem注释是通过go doc 查询所得</p>
+<p>对于 <code>struct</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">    <span class="string">"strconv"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> testStruct <span class="keyword">struct</span> &#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">    Num  <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t testStruct)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">    <span class="keyword">return</span> t.name + <span class="string">" and "</span> + strconv.Itoa(t.Num)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t testStruct)</span> <span class="title">ignore</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">    <span class="keyword">return</span> t.name</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    v := testStruct&#123;name: <span class="string">"test"</span>, Num: <span class="number">1</span>&#125;</div><div class="line">    value := reflect.ValueOf(v)</div><div class="line">    fmt.Println(value)<span class="comment">//&#123;test 1&#125;</span></div><div class="line"></div><div class="line">    <span class="comment">//获取struct的成员数量</span></div><div class="line">    count := value.NumField()</div><div class="line">    fmt.Println(count) <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="comment">//通过Field(i）获取指定序列的值</span></div><div class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; count; i++ &#123;</div><div class="line">        fmt.Printf(<span class="string">"Field %d is %v\n"</span>, i, value.Field(i))</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//Field 0 is test</span></div><div class="line">    <span class="comment">//Field 1 is 1</span></div><div class="line"></div><div class="line">    <span class="comment">//通过反射修改struct的field值.同样的需要指针寻址</span></div><div class="line">    value2 := reflect.ValueOf(&amp;v)</div><div class="line">    fmt.Println(value2)<span class="comment">//&amp;test and 1</span></div><div class="line">    value21 := value2.Elem()</div><div class="line">    fmt.Println(value21.CanSet()) <span class="comment">//true</span></div><div class="line"></div><div class="line">    <span class="comment">//value21.FieldByName("name").SetString("notTest") //panic 可导出才可以修改</span></div><div class="line">    <span class="comment">//通过Field(i int).setInt()来修改制定序列的field的值</span></div><div class="line">    value21.Field(<span class="number">1</span>).SetInt(<span class="number">2</span>)</div><div class="line">    fmt.Println(v.Num) <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="comment">//获取struct的Method数量</span></div><div class="line">    fmt.Println(value.NumMethod()) <span class="comment">//1 仅能获取可导出的方法计数</span></div><div class="line"></div><div class="line">    <span class="comment">//通过reflect.Value.Method(i int).Call(args)来调用指定序列的方法。</span></div><div class="line">    fmt.Println(value.Method(<span class="number">0</span>).Call(<span class="literal">nil</span>))<span class="comment">//[test and 1]</span></div><div class="line">    <span class="comment">//通过reflect.Value.MethodByName(name string).Call(args)来调用指定名称的方法。</span></div><div class="line">    fmt.Println(value.MethodByName(<span class="string">"String"</span>).Call(<span class="literal">nil</span>))<span class="comment">//[test and 1]</span></div><div class="line">    <span class="comment">//fmt.Println(value.MethodByName("ignore").Call(nil)) //panic 可导出方法才可以</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里基本就在上面的代码写的差不多了。还有就是最后Method.Call为什么显示的是<code>[test and 1]</code>的问题。这也是为什么说修改时是使用指针寻址来的原因。上面<code>value=reflect.ValueOf(v)</code>其实是产生的一个副本给value。所以修改了v的本身并不会影响value。</p>
+<p>差不多简单了解了这么多。因时间以及能力原因我只是简单测试所得。其中估计会有不恰当或者错误的地方。在之后的学习中如果有发现会后续补充。如果有看到的同学还是要多实践以及阅读源码。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/11/Hexo&github 建立自己的博客/" itemprop="url">
                   Hexo&Github建立博客
                 </a>
@@ -435,7 +567,7 @@ deploy:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -443,7 +575,7 @@ deploy:
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -452,7 +584,7 @@ deploy:
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
