@@ -94,7 +94,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
 git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
 <meta property="og:image" content="http://yoursite.com/images/godaddy1.png">
 <meta property="og:image" content="http://yoursite.com/images/godaddy2.png">
-<meta property="og:updated_time" content="2017-11-19T12:52:25.093Z">
+<meta property="og:updated_time" content="2017-11-19T12:57:16.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vps与hexo 建站">
 <meta name="twitter:description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑~
@@ -320,7 +320,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建仓库文件夹</div><div class="line">mkdir blog.git</div><div class="line">cd blog.git</div><div class="line"># bare 是仅仅支持git更新，本地是不能直接操作git仓库的 --share则是默认权限</div><div class="line">git init --bare --shared</div></pre></td></tr></table></figure>
 <p>这时候就可以在本地机器中git clone检查下是否生效。</p>
 <p><code>git clone ssh://git@host:port/home/userName/blog.git</code></p>
-<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>.deploy_git/.git/config</code> 文件中的remote使其与上面git clone的地址一致即可即可。修改完成后执行hexo 相关命令校验。</p>
+<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>.deploy_git/.git/config</code> 文件中的remote使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
 <p>最后一步就是如何将hexo 博客项目部署到nginx了。当然前提是安装好nginx.这里就不多做描述。(其中需要注意的是如果想仅仅在git用户下就完成所有操作的话，需要注意nginx安装时–prefix指定安装目录.还有就是非root用户不能使用1024以下端口问题，可以考虑使用以下命令，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># xxx为nginx启动文件目录</div><div class="line">setcap cap_net_bind_service=ep xxxx</div></pre></td></tr></table></figure>
 <p>这样就能以git用户启动nginx了。当然还有其他解决方法，这里不多说了。<br>最后则是修改blog.git/hooks中的post-update文件实现每次更新时自动将html文件部署到nginx。具体内容如下</p>
@@ -328,7 +328,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
 <p>这样就实现每次提交后自动发布的功能了，这时候已经可以直接用vps的ip访问看看了。</p>
 <p>当然这里可以考虑在nginx中增加限流设置。常见的比如:<br>http下<br>limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;<br>server下<br>limit_req zone=one burst=5 nodelay;<br>(限制请求数策略平均10/s )</p>
 <p>http下:<br>limit_conn_zone $binary_remote_addr zone=addr:10m;<br>server下:<br>limit_conn addr 1<br>（限制单ip连接数1）</p>
-<p>…等等等等。</p>
+<p>…等等等等依据自己实际情况设置。</p>
 <p>这里为止，git服务器就搭建好了。</p>
 <h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>这时候依旧只能通过ip访问，我们需要去购买一个域名，这个可以参考开头给出的我朋友的博客内容。重点是如何绑定呢。这里以godaddy为例。先点击用户下的我的产品进入以下页面<br><img src="/images/godaddy1.png" alt="sorry,the pic is missing"></p>
 <p>接着点击图中框出的DNS按钮就如下一个页面，点击右下角的添加.出现如下图的界面</p>
