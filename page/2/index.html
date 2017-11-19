@@ -248,6 +248,130 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/01/golang建站-1/" itemprop="url">
+                  Golang建站(1)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-01T21:06:02+08:00" content="2017-03-01">
+              2017-03-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Golang建站/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang建站</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="photoShare-建站问题记录"><a href="#photoShare-建站问题记录" class="headerlink" title="photoShare 建站问题记录"></a>photoShare 建站问题记录</h2><h3 id="0301"><a href="#0301" class="headerlink" title="0301"></a>0301</h3><p>第一是前端选择.之前是用的bootstrap开发.view部分还是靠自己一点一点的写.然后选择了AdminLTE模板快速开发.至于后台则是beego.至于其他的有各类的js插件,就不一一列出了.</p>
+<p>然后关于golang 模板嵌套传值问题.首先template的渲染传值是针对主模板的.比如主模板是b.html.其中有引用了head.html,foot.html.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">&#123;&#123;template "head.html"&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    &#123;&#123;.user.userName&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"> &#123;&#123;template "foot.html"&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>比如上面这种写法.如果现在head.html中使用user的值必须在引用模板的末尾添加传递的值.如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;template "head.html" .&#125;&#125;</div></pre></td></tr></table></figure>
+<p>这就是直接传递上下文(<strong>就是后面的那个点</strong>).调用方法就是和主模板一样:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;.user.userName&#125;&#125;</div></pre></td></tr></table></figure>
+<p>如果是指定传递,比如:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;template "head.html" .user&#125;&#125;</div></pre></td></tr></table></figure>
+<p>这则是只传递user.这时候相当于子模板的上下文就是user的域.调用类似,稍加修改:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;.userName&#125;&#125;</div></pre></td></tr></table></figure>
+<p>(<strong>注意区别是少了user这个域</strong>)</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/20/golang-Package-reflect简单了解（1）/" itemprop="url">
                   golang:package reflect简单了解（1）
                 </a>
@@ -567,7 +691,7 @@ deploy:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -584,7 +708,7 @@ deploy:
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
