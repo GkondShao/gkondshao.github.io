@@ -320,7 +320,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建仓库文件夹</div><div class="line">mkdir blog.git</div><div class="line">cd blog.git</div><div class="line"># bare 是仅仅支持git更新，本地是不能直接操作git仓库的 --share则是默认权限</div><div class="line">git init --bare --shared</div></pre></td></tr></table></figure>
 <p>这时候就可以在本地机器中git clone检查下是否生效。</p>
 <p><code>git clone ssh://git@host:port/home/userName/blog.git</code></p>
-<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>.deploy_git/.git/config</code> 文件中的remote使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
+<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>_config.yml</code> 文件中的repo使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
 <p>最后一步就是如何将hexo 博客项目部署到nginx了。当然前提是安装好nginx.这里就不多做描述。(其中需要注意的是如果想仅仅在git用户下就完成所有操作的话，需要注意nginx安装时–prefix指定安装目录.还有就是非root用户不能使用1024以下端口问题，可以考虑使用以下命令，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># xxx为nginx启动文件目录</div><div class="line">setcap cap_net_bind_service=ep xxxx</div></pre></td></tr></table></figure>
 <p>这样就能以git用户启动nginx了。当然还有其他解决方法，这里不多说了。<br>最后则是修改blog.git/hooks中的post-update文件实现每次更新时自动将html文件部署到nginx。具体内容如下</p>
