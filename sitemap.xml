@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.evanshao.com/baidu_verify_NaUDGTvZeg.html</loc>
+    <loc>http://blog.evanshao.com/baidu_verify_p0UIYPH0zE.html</loc>
     
-    <lastmod>2018-12-17T12:19:28.666Z</lastmod>
+    <lastmod>2018-12-17T12:34:28.627Z</lastmod>
     
   </url>
   
@@ -16,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/2017/04/05/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95/</loc>
+    <loc>http://blog.evanshao.com/2018/12/14/nginx-%E8%B6%85%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</loc>
     
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/2018/12/14/nginx-%E8%B6%85%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</loc>
+    <loc>http://blog.evanshao.com/2017/04/05/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95/</loc>
     
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
     
@@ -51,6 +51,13 @@
   </url>
   
   <url>
+    <loc>http://blog.evanshao.com/2017/03/01/golang%E5%BB%BA%E7%AB%99-1/</loc>
+    
+    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.evanshao.com/2016/09/20/golang-Package-reflect%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%EF%BC%881%EF%BC%89/</loc>
     
     <lastmod>2018-12-17T12:04:16.806Z</lastmod>
@@ -65,13 +72,6 @@
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/2017/03/01/golang%E5%BB%BA%E7%AB%99-1/</loc>
-    
-    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.evanshao.com/2017/03/19/golang-xml%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2018-12-17T12:04:16.790Z</lastmod>
@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/2017/03/14/goInActionNote-2/</loc>
+    <loc>http://blog.evanshao.com/2017/03/13/goInActionNote-1/</loc>
     
     <lastmod>2018-12-17T12:04:16.775Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/2017/03/13/goInActionNote-1/</loc>
+    <loc>http://blog.evanshao.com/2017/03/14/goInActionNote-2/</loc>
     
     <lastmod>2018-12-17T12:04:16.775Z</lastmod>
     
