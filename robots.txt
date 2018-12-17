@@ -21,3 +21,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 
 Disallow: /fancybox/
+
+Sitemap: http://evanshao.com/sitemap.xml
