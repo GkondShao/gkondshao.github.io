@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://blog.evanshao.com/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%A4%BA%E4%BE%8B.html</loc>
-    <lastmod>2018-12-31T16:35:09.836Z</lastmod>
+    <lastmod>2018-12-31T16:38:44.579Z</lastmod>
   </url>  <url>
     <loc>http://blog.evanshao.com/nginx-%E8%B6%85%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B.html</loc>
     <lastmod>2018-12-31T08:55:12.729Z</lastmod>
@@ -10,10 +10,10 @@
     <loc>http://blog.evanshao.com/HexoAndgithub%20%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2.html</loc>
     <lastmod>2018-12-17T13:09:12.029Z</lastmod>
   </url>  <url>
-    <loc>http://blog.evanshao.com/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95.html</loc>
+    <loc>http://blog.evanshao.com/vps%E4%B8%8Ehexo-%E5%BB%BA%E7%AB%99.html</loc>
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
   </url>  <url>
-    <loc>http://blog.evanshao.com/vps%E4%B8%8Ehexo-%E5%BB%BA%E7%AB%99.html</loc>
+    <loc>http://blog.evanshao.com/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95.html</loc>
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
   </url>  <url>
     <loc>http://blog.evanshao.com/%E7%90%86%E8%A7%A3golang%E7%9A%84context%E5%8C%85.html</loc>
@@ -25,13 +25,13 @@
     <loc>http://blog.evanshao.com/groupcache%E5%B0%9D%E8%AF%95.html</loc>
     <lastmod>2018-12-17T12:04:16.821Z</lastmod>
   </url>  <url>
-    <loc>http://blog.evanshao.com/golang%E5%BB%BA%E7%AB%99-1.html</loc>
-    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
-  </url>  <url>
     <loc>http://blog.evanshao.com/goInActionNote-4.html</loc>
     <lastmod>2018-12-17T12:04:16.806Z</lastmod>
   </url>  <url>
     <loc>http://blog.evanshao.com/golang-Package-reflect%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%EF%BC%881%EF%BC%89.html</loc>
+    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
+  </url>  <url>
+    <loc>http://blog.evanshao.com/golang%E5%BB%BA%E7%AB%99-1.html</loc>
     <lastmod>2018-12-17T12:04:16.806Z</lastmod>
   </url>  <url>
     <loc>http://blog.evanshao.com/golang-xml%E8%A7%A3%E6%9E%90.html</loc>

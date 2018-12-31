@@ -4,7 +4,7 @@
   <url>
     <loc>http://blog.evanshao.com/nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%A4%BA%E4%BE%8B.html</loc>
     
-    <lastmod>2018-12-31T16:35:09.836Z</lastmod>
+    <lastmod>2018-12-31T16:38:44.579Z</lastmod>
     
   </url>
   
@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95.html</loc>
+    <loc>http://blog.evanshao.com/vps%E4%B8%8Ehexo-%E5%BB%BA%E7%AB%99.html</loc>
     
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/vps%E4%B8%8Ehexo-%E5%BB%BA%E7%AB%99.html</loc>
+    <loc>http://blog.evanshao.com/golang%E7%9F%A5%E4%B9%8E%E7%88%AC%E8%99%AB%E5%B0%8F%E8%AF%95.html</loc>
     
     <lastmod>2018-12-17T12:04:16.853Z</lastmod>
     
@@ -58,13 +58,6 @@
   </url>
   
   <url>
-    <loc>http://blog.evanshao.com/golang%E5%BB%BA%E7%AB%99-1.html</loc>
-    
-    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.evanshao.com/goInActionNote-4.html</loc>
     
     <lastmod>2018-12-17T12:04:16.806Z</lastmod>
@@ -73,6 +66,13 @@
   
   <url>
     <loc>http://blog.evanshao.com/golang-Package-reflect%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%EF%BC%881%EF%BC%89.html</loc>
+    
+    <lastmod>2018-12-17T12:04:16.806Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.evanshao.com/golang%E5%BB%BA%E7%AB%99-1.html</loc>
     
     <lastmod>2018-12-17T12:04:16.806Z</lastmod>
     
