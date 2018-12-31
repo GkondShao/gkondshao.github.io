@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://blog.evanshao.com/images/lbserverA.png">
 <meta property="og:image" content="http://blog.evanshao.com/images/lbserverB.png">
 <meta property="og:image" content="http://blog.evanshao.com/images/vps.png">
-<meta property="og:updated_time" content="2018-12-31T16:46:12.296Z">
+<meta property="og:updated_time" content="2018-12-31T17:34:01.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx:反向代理实例">
 <meta name="twitter:description" content="借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇">
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-01 00:46:12" itemprop="dateModified" datetime="2019-01-01T00:46:12+08:00">2019-01-01</time>
+                <time title="修改时间：2019-01-01 01:34:01" itemprop="dateModified" datetime="2019-01-01T01:34:01+08:00">2019-01-01</time>
               
             
           </span>
@@ -445,8 +445,8 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>这节其实是上一篇nginx教程的补充,因为有朋友看了之后对于反向代理那块还有点疑问.所以这边就举一个简单的例子(负载均衡).本来是想加上一些docker的知识的,但是在准备这篇文章的时候我的vps遭GFW三杀.所以浪费了一部分时间,恰好之前群里的一位朋友的搬瓦工vps也惨遭封禁,当时我还很轻松的告诉他迁移机房就可以了,当然结果肯定是啪啪打脸(果然还是我很傻很天真).所以在后半部分会提到一种解决方案(其实就是提工单后得出的结论).所以废话不说,进入正题吧~</p>
-<h2 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h2><p>上一篇文章提到了反向代理的概念.概念其实很简单,但是实际上有什么应用呢?<br>有个最简单也是很实用的例子,也就是负载均衡.作为反向代理的nginx在收到请求后按照一定规则再分发给下游的服务器.在这里对服务端而言客户端是明确的,并且通常配置的时候会带上realip.但是对于客户端来讲却不知道请求最后落到了哪台机器,这就是一个常见的反向代理的场景.这里并没有其他可以补充的知识,在nginx的官网上都是有相关介绍的.<br>这就着重以一个例子来实现.</p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>这节其实是上一篇nginx教程的补充,因为有朋友看了之后对于反向代理那块还有点疑问.所以这边就举一个简单的例子(负载均衡).本来是想加上一些docker的知识的,但是在准备这篇文章的时候我的vps遭GFW三杀.所以浪费了一部分时间,恰好之前群里的一位朋友的搬瓦工vps也惨遭封禁,当时我还很轻松的告诉他迁移机房就可以了,当然结果肯定是啪啪打脸(果然还是我很傻很天真).所以在后半部分会提到一种解决方案(其实就是提工单后得出的结论).所以废话不说,进入正题吧~</p>
+<h1 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h1><p>上一篇文章提到了反向代理的概念.概念其实很简单,但是实际上有什么应用呢?<br>有个最简单也是很实用的例子,也就是负载均衡.作为反向代理的nginx在收到请求后按照一定规则再分发给下游的服务器.在这里对服务端而言客户端是明确的,并且通常配置的时候会带上realip.但是对于客户端来讲却不知道请求最后落到了哪台机器,这就是一个常见的反向代理的场景.这里并没有其他可以补充的知识,在nginx的官网上都是有相关介绍的.<br>这就着重以一个例子来实现.</p>
 <p>这边会借助docker来实现这个例子.<br>最简单的一个例子就是两个服务容器一个nginx容器.<br>nginx容器就是直接使用官方镜像即可.</p>
 <p>首先是server的代码,go语言编写</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"log"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">	<span class="string">"os"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/test"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		log.Println(r)</div><div class="line">		hostName, _ := os.Hostname()</div><div class="line">		w.Write([]<span class="keyword">byte</span>(fmt.Sprintf(<span class="string">"server:%s\n"</span>, hostName)))</div><div class="line">		<span class="keyword">return</span></div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	log.Println(<span class="string">"start..."</span>)</div><div class="line"></div><div class="line">	log.Panic(http.ListenAndServe(<span class="string">":8081"</span>, <span class="literal">nil</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -472,7 +472,7 @@
 <p><img src="/images/lbserverB.png" alt="sorry,the pic is missing"></p>
 <p>这边配置默认应该是轮询,当你停掉一个容器的时候就会只访问到活着的那台机器了.<br>这里如果没时间自己操作的话,直接按照我上面的三条docker run命令执行即可.<br>后面可以慢慢还原.</p>
 <p>这里写的有些粗略了,因为上一篇文章已经有提到一些nginx关键字的用法,官方也写得很详细了.主要还是展示下如果通过docker展现这一场景,后续我也会慢慢补充一些docker的知识,希望到时候能对你们有所帮助.</p>
-<h2 id="搬瓦工vps被墙"><a href="#搬瓦工vps被墙" class="headerlink" title="搬瓦工vps被墙"></a>搬瓦工vps被墙</h2><p>接下来就是插播的一条小tip吧,如果有买了搬瓦工vps被墙的朋友,可以尝试我这边的方法,也算一定程度上的止损吧,总比直接废弃的好.<br>首先现象就是ping通但是ssh等都没法过去,通过站长之家的端口扫描发现常用端口全部显示关闭.这时候通过在线的控制台爬上去发现sshd,iptables等却全部ok.这就很诧异了.其实这时候已经觉得是被GFW墙了,但是本着谨慎的原则我给搬瓦工提了工单.这里得夸下搬瓦工,响应速度出奇的快,虽然可能是自动回复,毕竟结尾写着<code>This is an automatic reply.</code>.不过我那蹩脚的英文,他能这么快通过关键字响应过来也是很厉害的啦.如果是人工回复自然是点个赞,邮件回复推测可能是我被GFW墙了,同时给了个境外的在线端口扫描网站,结果发现在境外所有端口全部ok.这时候根据邮件里的建议只能换IP了.等GFW解封那个建议还是直接无视好了…这边是我觉得可(免)行(费)的一条建议的截图</p>
+<h1 id="搬瓦工vps被墙"><a href="#搬瓦工vps被墙" class="headerlink" title="搬瓦工vps被墙"></a>搬瓦工vps被墙</h1><p>接下来就是插播的一条小tip吧,如果有买了搬瓦工vps被墙的朋友,可以尝试我这边的方法,也算一定程度上的止损吧,总比直接废弃的好.<br>首先现象就是ping通但是ssh等都没法过去,通过站长之家的端口扫描发现常用端口全部显示关闭.这时候通过在线的控制台爬上去发现sshd,iptables等却全部ok.这就很诧异了.其实这时候已经觉得是被GFW墙了,但是本着谨慎的原则我给搬瓦工提了工单.这里得夸下搬瓦工,响应速度出奇的快,虽然可能是自动回复,毕竟结尾写着<code>This is an automatic reply.</code>.不过我那蹩脚的英文,他能这么快通过关键字响应过来也是很厉害的啦.如果是人工回复自然是点个赞,邮件回复推测可能是我被GFW墙了,同时给了个境外的在线端口扫描网站,结果发现在境外所有端口全部ok.这时候根据邮件里的建议只能换IP了.等GFW解封那个建议还是直接无视好了…这边是我觉得可(免)行(费)的一条建议的截图</p>
 <p><img src="/images/vps.png" alt="sorry,the pic is missing"></p>
 <p>大体就是每10周可以免费换一次IP(所以还是别随便自己搭梯子了),其中先登录对应vps的KiwiVM,这里应该是获取到cookie,session或者token一类的东西,然后在当前地址栏里访问<code>https://kiwivm.64clouds.com/main-exec.php?mode=blacklistcheck</code></p>
 <p>这边会提示你检测ip是不是被ban了,检测完成后如果被ban了会有一个免费更换ip的按钮,点击就ok了.实测有效.</p>
@@ -741,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx反向代理"><span class="nav-number">2.</span> <span class="nav-text">nginx反向代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搬瓦工vps被墙"><span class="nav-number">3.</span> <span class="nav-text">搬瓦工vps被墙</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx反向代理"><span class="nav-number">2.</span> <span class="nav-text">nginx反向代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搬瓦工vps被墙"><span class="nav-number">3.</span> <span class="nav-text">搬瓦工vps被墙</span></a></li></ol></div>
             
 
           </div>
