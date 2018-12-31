@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx:反向代理实例">
+<meta property="og:url" content="http://blog.evanshao.com/nginx-反向代理示例.html">
+<meta property="og:site_name" content="GO!">
+<meta property="og:description" content="借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇">
+<meta property="og:image" content="http://blog.evanshao.com/images/lbserverA.png">
+<meta property="og:image" content="http://blog.evanshao.com/images/lbserverA.png">
+<meta property="og:image" content="http://blog.evanshao.com/images/vps.png">
+<meta property="og:updated_time" content="2018-12-31T16:35:09.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx:反向代理实例">
+<meta name="twitter:description" content="借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇">
+<meta name="twitter:image" content="http://blog.evanshao.com/images/lbserverA.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://blog.evanshao.com/nginx-反向代理示例.html"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>nginx:反向代理实例 | GO!</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GO!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/nginx-反向代理示例.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shaorxcn">
+      <meta itemprop="description" content="The more you pay , the more you will gain.">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GO!">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">nginx:反向代理实例
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-31 16:53:26" itemprop="dateCreated datePublished" datetime="2018-12-31T16:53:26+08:00">2018-12-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-01 00:35:09" itemprop="dateModified" datetime="2019-01-01T00:35:09+08:00">2019-01-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>这节其实是上一篇nginx教程的补充,因为有朋友看了之后对于反向代理那块还有点疑问.所以这边就举一个简单的例子(负载均衡).本来是想加上一些docker的知识的,但是在准备这篇文章的时候我的vps遭GFW三杀.所以浪费了一部分时间,恰好之前群里的一位朋友的搬瓦工vps也惨遭封禁,当时我还很轻松的告诉他迁移机房就可以了,当然结果肯定是啪啪打脸(果然还是我很傻很天真).所以在后半部分会提到一种解决方案(其实就是提工单后得出的结论).所以废话不说,进入正题吧~</p>
+<h2 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h2><p>上一篇文章提到了反向代理的概念.概念其实很简单,但是实际上有什么应用呢?<br>有个最简单也是很实用的例子,也就是负载均衡.作为反向代理的nginx在收到请求后按照一定规则再分发给下游的服务器.在这里对服务端而言客户端是明确的,并且通常配置的时候会带上realip.但是对于客户端来讲却不知道请求最后落到了哪台机器,这就是一个常见的反向代理的场景.这里并没有其他可以补充的知识,在nginx的官网上都是有相关介绍的.<br>这就着重以一个例子来实现.</p>
+<p>这边会借助docker来实现这个例子.<br>最简单的一个例子就是两个服务容器一个nginx容器.<br>nginx容器就是直接使用官方镜像即可.</p>
+<p>首先是server的代码,go语言编写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"fmt"</span></div><div class="line">	<span class="string">"log"</span></div><div class="line">	<span class="string">"net/http"</span></div><div class="line">	<span class="string">"os"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	http.HandleFunc(<span class="string">"/test"</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</div><div class="line">		log.Println(r)</div><div class="line">		hostName, _ := os.Hostname()</div><div class="line">		w.Write([]<span class="keyword">byte</span>(fmt.Sprintf(<span class="string">"server:%s\n"</span>, hostName)))</div><div class="line">		<span class="keyword">return</span></div><div class="line">	&#125;)</div><div class="line"></div><div class="line">	log.Println(<span class="string">"start..."</span>)</div><div class="line"></div><div class="line">	log.Panic(http.ListenAndServe(<span class="string">":8081"</span>, <span class="literal">nil</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本身没什么难度,主要是会输出自己的hostname,这个在后面帮助我们区分实际访问的服务器.</p>
+<p>然后<code>go build</code> 编译即可,根据自己的实际需求选择编译条件.这里我提供了现成的docker镜像,地址为(<a href="https://cloud.docker.com/u/evanshao/repository/docker/evanshao/lbserver),就不多赘述了" target="_blank" rel="external">https://cloud.docker.com/u/evanshao/repository/docker/evanshao/lbserver),就不多赘述了</a>.<br>然后是Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">FROM debian</div><div class="line">MAINTAINER evan</div><div class="line">COPY server /</div><div class="line">ENTRYPOINT [&quot;./server&quot;]</div></pre></td></tr></table></figure>
+<p>这个也很简单,就是借助debian基础镜像运行编译好的server.</p>
+<p>然后是nginx配置(已经提供了镜像,地址是:<a href="https://cloud.docker.com/u/evanshao/repository/docker/evanshao/lbnginx).这里可以参考上一篇文章的基础配置" target="_blank" rel="external">https://cloud.docker.com/u/evanshao/repository/docker/evanshao/lbnginx).这里可以参考上一篇文章的基础配置</a>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#user nobody;</div><div class="line">worker_processes 4; # 按照机器情况定</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections 10240; # 按照机器情况定</div><div class="line">&#125;</div><div class="line"></div><div class="line">http&#123;</div><div class="line">    include  mime.types;</div><div class="line">    default_type  application/json;  # 按照自己服务设置</div><div class="line">    error_page 500 502 503 504 /50x.html;</div><div class="line">    error_page 404 /404.html; # 这个自己写了放到html目录下,不然应该是nginx代码里写死的</div><div class="line">     resolver 114.114.114.114;</div><div class="line">    # 定义日志格式  这个别名是main</div><div class="line">    log_format main &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot;  $status $body_bytes_sent &quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line"></div><div class="line">  sendfile on;</div><div class="line"> keepalive_timeout 30;</div><div class="line"></div><div class="line"> include sites/*.http.conf;  # 具体的server放在这里</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重点是sites下需要两个新建的配置文件,<br>一个是ups.http.upstream:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream test_server&#123;</div><div class="line">	server serverA:8081;</div><div class="line">	server serverB:8081;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里其实是有两个注意点的,一个是serverA 这个是配合后面的dockerDNS使用的,还有个自然是端口号,和server程序监听的端口号一致.</p>
+<p>另外一个文件是 ups.http.conf,这里在开头引用了upsream文件,并利用proxy_pass实现了转发.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">include sites/ups.http.upstream;</div><div class="line">server&#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	server_name localhost;</div><div class="line">	access_log logs/ups.log main;</div><div class="line">	</div><div class="line">	location /&#123;</div><div class="line">		set $upstream_host $host;</div><div class="line">		proxy_pass http://test_server;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>到这里实验环境就准备好了,下面其实就是docker部分了,时间有限,这里仅仅提下使用方法.如果docker没有安装的话可以参考官方文档进行操作,后面有机会我也会开始写一些docker的简单教程~</p>
+<p>上文提到的dockerDNS其实是docker提供的一种容器间通信的方法.具体的就不赘述了,如果有兴趣的话可以自行搜索或者等我的blog哦.<br>首先我们要创建自己的docker子网<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker network create --driver bridge --subnet 172.22.16.0/24 --gateway 172.22.16.1 my_net</div></pre></td></tr></table></figure></p>
+<p>这里相当于创建了一个局域网,网段是172.22.16.然后在运行server和nginx容器的时候我会把他们都指定到这个网段,这样才能保证局域网内各容器的网络通信.<br>接下来首先启动两台server容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd --rm --name serverA --hostname serverA --network=my_net evanshao/lbserver</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd --rm --name serverB --hostname serverB --network=my_net evanshao/lbserver</div></pre></td></tr></table></figure>
+<p>这里用<code>--hostname</code> 指定机器的host配合server的取值,<code>--name</code>相当于指定局域网内的通信域名,这里需要注意的是<code>--name</code> 指定的才是我们访问的域名,这里我顺手写成和hostname一样的了,不要混淆.</p>
+<p>然后我们需要启动nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd --rm --name lbnginx -p 80:80 --network=my_net evanshao/lbnginx</div></pre></td></tr></table></figure></p>
+<p>这时候实验环境就已经搭建完成了,我们通过浏览器访问<code>http://192.168.31.147/test</code>就可以看到效果了:</p>
+<p><img src="/images/lbserverA.png" alt="sorry,the pic is missing"></p>
+<p>刷新就变成</p>
+<p><img src="/images/lbserverA.png" alt="sorry,the pic is missing"></p>
+<p>这边配置默认应该是轮询,当你停掉一个容器的时候就会只访问到活着的那台机器了.<br>这里如果没时间自己操作的话,直接按照我上面的三条docker run命令执行即可.<br>后面可以慢慢还原.</p>
+<p>这里写的有些粗略了,因为上一篇文章已经有提到一些nginx关键字的用法,官方也写得很详细了.主要还是展示下如果通过docker展现这一场景,后续我也会慢慢补充一些docker的知识,希望到时候能对你们有所帮助.</p>
+<h2 id="搬瓦工vps被墙"><a href="#搬瓦工vps被墙" class="headerlink" title="搬瓦工vps被墙"></a>搬瓦工vps被墙</h2><p>接下来就是插播的一条小tip吧,如果有买了搬瓦工vps被墙的朋友,可以尝试我这边的方法,也算一定程度上的止损吧,总比直接废弃的好.<br>首先现象就是ping通但是ssh等都没法过去,通过站长之家的端口扫描发现常用端口全部显示关闭.这时候通过在线的控制台爬上去发现sshd,iptables等却全部ok.这就很诧异了.其实这时候已经觉得是被GFW墙了,但是本着谨慎的原则我给搬瓦工提了工单.这里得夸下搬瓦工,响应速度出奇的快,虽然可能是自动回复,毕竟结尾写着<code>This is an automatic reply.</code>.不过我那蹩脚的英文,他能这么快通过关键字响应过来也是很厉害的啦.如果是人工回复自然是点个赞,邮件回复推测可能是我被GFW墙了,同时给了个境外的在线端口扫描网站,结果发现在境外所有端口全部ok.这时候根据邮件里的建议只能换IP了.等GFW解封那个建议还是直接无视好了…这边是我觉得可(免)行(费)的一条建议的截图</p>
+<p><img src="/images/vps.png" alt="sorry,the pic is missing"></p>
+<p>大体就是每10周可以免费换一次IP(所以还是别随便自己搭梯子了),其中先登录对应vps的KiwiVM,这里应该是获取到cookie,session或者token一类的东西,然后在当前地址栏里访问<code>https://kiwivm.64clouds.com/main-exec.php?mode=blacklistcheck</code></p>
+<p>这边会提示你检测ip是不是被ban了,检测完成后如果被ban了会有一个免费更换ip的按钮,点击就ok了.实测有效.</p>
+<p>另外还有个付费更换IP的地址,我也贴下吧,自己取舍~</p>
+<p><a href="https://bwh8.net/ipchange.php" target="_blank" rel="external">https://bwh8.net/ipchange.php</a></p>
+<p>这次内容有点短,但还是希望能对大家有所帮助,更希望大家通过我的文章能起个头,看一些之前自己没有接触过的东西,这也是我写博客的目的.就像最近的几篇文章,我的博客内容不会很深入,但是我会尽可能尝试来包含不同领域的知识.当然也正因为如此,如果文章中有错误,欢迎指正给留言~</p>
+<p>最后祝大家新年快乐,新的一年心想事成~</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>客官扫码领红包哟~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alired.png" alt="shaorxcn 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/vps/" rel="tag"># vps</a>
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/nginx-超简单的入门基础教程.html" rel="next" title="nginx:超简单超详细的入门说明">
+                <i class="fa fa-chevron-left"></i> nginx:超简单超详细的入门说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTU0NC8xODA5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="shaorxcn" />
+            
+              <p class="site-author-name" itemprop="name">shaorxcn</p>
+              <p class="site-description motion-element" itemprop="description">The more you pay , the more you will gain.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ShaorxCN" title="GitHub &rarr; https://github.com/ShaorxCN" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx反向代理"><span class="nav-number">2.</span> <span class="nav-text">nginx反向代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搬瓦工vps被墙"><span class="nav-number">3.</span> <span class="nav-text">搬瓦工vps被墙</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shaorxcn</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+    <script>
+      window.livereOptions = {
+        refer: 'nginx-反向代理示例.html'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

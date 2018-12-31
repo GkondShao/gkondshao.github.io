@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="golang版本:go1.7rc1 linux/amd64大概看了下reflect的用法。记录已备后续查看.
+reflect大概类型与方法通过go doc reflect包可以发现其中我们最常用的一个type Type interface和一个type Value struct
+通过以下两个方法可以获取到他们12func TypeOf(i interface&amp;#123;&amp;#125;) Typefu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang:package reflect简单了解（1）">
+<meta property="og:url" content="http://blog.evanshao.com/golang-Package-reflect简单了解（1）.html">
+<meta property="og:site_name" content="GO!">
+<meta property="og:description" content="golang版本:go1.7rc1 linux/amd64大概看了下reflect的用法。记录已备后续查看.
+reflect大概类型与方法通过go doc reflect包可以发现其中我们最常用的一个type Type interface和一个type Value struct
+通过以下两个方法可以获取到他们12func TypeOf(i interface&amp;#123;&amp;#125;) Typefu">
+<meta property="og:updated_time" content="2018-12-17T12:04:16.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="golang:package reflect简单了解（1）">
+<meta name="twitter:description" content="golang版本:go1.7rc1 linux/amd64大概看了下reflect的用法。记录已备后续查看.
+reflect大概类型与方法通过go doc reflect包可以发现其中我们最常用的一个type Type interface和一个type Value struct
+通过以下两个方法可以获取到他们12func TypeOf(i interface&amp;#123;&amp;#125;) Typefu">
+
+
+
+
+
+
+  <link rel="canonical" href="http://blog.evanshao.com/golang-Package-reflect简单了解（1）.html"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>golang:package reflect简单了解（1） | GO!</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GO!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/golang-Package-reflect简单了解（1）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shaorxcn">
+      <meta itemprop="description" content="The more you pay , the more you will gain.">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GO!">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">golang:package reflect简单了解（1）
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-09-20 14:55:16" itemprop="dateCreated datePublished" datetime="2016-09-20T14:55:16+08:00">2016-09-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-17 20:04:16" itemprop="dateModified" datetime="2018-12-17T20:04:16+08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Golang学习/" itemprop="url" rel="index"><span itemprop="name">Golang学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>golang版本:go1.7rc1 linux/amd64<br>大概看了下reflect的用法。记录已备后续查看.</p>
+<h1 id="reflect大概"><a href="#reflect大概" class="headerlink" title="reflect大概"></a>reflect大概</h1><h2 id="类型与方法"><a href="#类型与方法" class="headerlink" title="类型与方法"></a>类型与方法</h2><p>通过go doc reflect包可以发现其中我们最常用的一个<code>type Type interface</code>和一个<code>type Value struct</code></p>
+<p>通过以下两个方法可以获取到他们<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">TypeOf</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Type</span></span></div><div class="line"><span class="title">func</span> <span class="title">ValueOf</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Value</span></div></pre></td></tr></table></figure></p>
+<p>可以看出在使用上面两个方法的时候是有将参数做空接口处理转换的。</p>
+<p><code>reflect.Type</code>是指的变量的类型。其中<code>reflect.Type</code>规定了很多的方法。<br><code>reflect.Value</code>是指的变量值的相关信息.并提供了方法供我们使用查询。</p>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><h3 id="reflect-Type"><a href="#reflect-Type" class="headerlink" title="reflect.Type"></a>reflect.Type</h3><p>首先是<code>reflect.Type</code>。最简单的自然是获取目标的类型。上面的<code>TypeOf</code>就可以直接返回目标的类型。但是其返回的是最浅层的类型。相当与<code>var type x</code><br>他返回的就是type。申明的什么返回什么。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> sepString <span class="keyword">string</span></div><div class="line"><span class="keyword">var</span> s sepString = <span class="string">"abc"</span></div></pre></td></tr></table></figure></p>
+<p>这时候：<br><code>reflect.TypeOf</code>返回的就是sepString.当然前缀是你定义type的包名。<br>如果想要获取其底层的数据类型则需要使用Kind()方法<br><code>reflect.TypeOf(s).Kind()</code>返回的就是string.</p>
+<p>对于<code>struct</code>其返回的自然是定义的结构提名称<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> testStruct <span class="keyword">struct</span> &#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">    Num  <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    v := testStruct&#123;name: <span class="string">"test"</span>, Num: <span class="number">1</span>&#125;</div><div class="line">    fmt.Println(reflect.TypeOf(v)) <span class="comment">//main.testStruct</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="reflect-Value"><a href="#reflect-Value" class="headerlink" title="reflect.Value"></a>reflect.Value</h3><p>通过<code>reflect.ValueOf</code>返回该值。其表示了目标的值。在<code>reflect</code>包中为其提供了众多的方法供我们使用。部分方法如下说明。</p>
+<p>Type()返回reflect.Value的Type。同样返回的是申明类型。参考<code>reflect.TypeOf</code></p>
+<p>Kind()返回底层的类型</p>
+<p>interface()返回还原值</p>
+<p>Elem()返回interface或者pointer的值。</p>
+<p>其中Elem()涉及到通过反射修改目标值。首先修改目标值必须是修改其本身，就和<code>interface</code>的实现一样。判断是否实现接口时对于reciever是否是指针类型是十分严格的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">Elem returns the value that the interface v contains or that the pointer v</div><div class="line">points to. It panics if v's Kind is not Interface or Ptr. It returns the</div><div class="line">zero Value if v is nil.</div><div class="line">*/</div><div class="line"><span class="comment">//func (v Value) Elem() Value</span></div><div class="line"></div><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span>(</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">)</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">type</span> st <span class="keyword">string</span></div><div class="line">    <span class="keyword">var</span> s st = <span class="string">"abc"</span></div><div class="line">    v := reflect.ValueOf(s)</div><div class="line">    v2 := reflect.ValueOf(&amp;s)<span class="comment">//通过指针获取其本身。地址获取</span></div><div class="line"></div><div class="line">    fmt.Println(v.CanSet()) <span class="comment">//false</span></div><div class="line">    <span class="comment">//fmt.Println(v.Elem().CanSet())</span></div><div class="line"></div><div class="line">    fmt.Println(v2.CanSet())        <span class="comment">//false</span></div><div class="line">    fmt.Println(v2.Elem().CanSet()) <span class="comment">//true</span></div><div class="line"></div><div class="line">    v2.Elem().SetString(<span class="string">"cba"</span>)</div><div class="line">    fmt.Println(s)<span class="comment">//cba</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>就像上面代码写的一样，主要是通过指针获取。还有就是通过reflect.Value.Elem()方法获取reflect.Value的值。最上面的Elem注释是通过go doc 查询所得</p>
+<p>对于 <code>struct</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">    <span class="string">"fmt"</span></div><div class="line">    <span class="string">"reflect"</span></div><div class="line">    <span class="string">"strconv"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="keyword">type</span> testStruct <span class="keyword">struct</span> &#123;</div><div class="line">    name <span class="keyword">string</span></div><div class="line">    Num  <span class="keyword">int</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t testStruct)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">    <span class="keyword">return</span> t.name + <span class="string">" and "</span> + strconv.Itoa(t.Num)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t testStruct)</span> <span class="title">ignore</span><span class="params">()</span> <span class="title">string</span></span> &#123;</div><div class="line">    <span class="keyword">return</span> t.name</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    v := testStruct&#123;name: <span class="string">"test"</span>, Num: <span class="number">1</span>&#125;</div><div class="line">    value := reflect.ValueOf(v)</div><div class="line">    fmt.Println(value)<span class="comment">//&#123;test 1&#125;</span></div><div class="line"></div><div class="line">    <span class="comment">//获取struct的成员数量</span></div><div class="line">    count := value.NumField()</div><div class="line">    fmt.Println(count) <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="comment">//通过Field(i）获取指定序列的值</span></div><div class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; count; i++ &#123;</div><div class="line">        fmt.Printf(<span class="string">"Field %d is %v\n"</span>, i, value.Field(i))</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//Field 0 is test</span></div><div class="line">    <span class="comment">//Field 1 is 1</span></div><div class="line"></div><div class="line">    <span class="comment">//通过反射修改struct的field值.同样的需要指针寻址</span></div><div class="line">    value2 := reflect.ValueOf(&amp;v)</div><div class="line">    fmt.Println(value2)<span class="comment">//&amp;test and 1</span></div><div class="line">    value21 := value2.Elem()</div><div class="line">    fmt.Println(value21.CanSet()) <span class="comment">//true</span></div><div class="line"></div><div class="line">    <span class="comment">//value21.FieldByName("name").SetString("notTest") //panic 可导出才可以修改</span></div><div class="line">    <span class="comment">//通过Field(i int).setInt()来修改制定序列的field的值</span></div><div class="line">    value21.Field(<span class="number">1</span>).SetInt(<span class="number">2</span>)</div><div class="line">    fmt.Println(v.Num) <span class="comment">//2</span></div><div class="line"></div><div class="line">    <span class="comment">//获取struct的Method数量</span></div><div class="line">    fmt.Println(value.NumMethod()) <span class="comment">//1 仅能获取可导出的方法计数</span></div><div class="line"></div><div class="line">    <span class="comment">//通过reflect.Value.Method(i int).Call(args)来调用指定序列的方法。</span></div><div class="line">    fmt.Println(value.Method(<span class="number">0</span>).Call(<span class="literal">nil</span>))<span class="comment">//[test and 1]</span></div><div class="line">    <span class="comment">//通过reflect.Value.MethodByName(name string).Call(args)来调用指定名称的方法。</span></div><div class="line">    fmt.Println(value.MethodByName(<span class="string">"String"</span>).Call(<span class="literal">nil</span>))<span class="comment">//[test and 1]</span></div><div class="line">    <span class="comment">//fmt.Println(value.MethodByName("ignore").Call(nil)) //panic 可导出方法才可以</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里基本就在上面的代码写的差不多了。还有就是最后Method.Call为什么显示的是<code>[test and 1]</code>的问题。这也是为什么说修改时是使用指针寻址来的原因。上面<code>value=reflect.ValueOf(v)</code>其实是产生的一个副本给value。所以修改了v的本身并不会影响value。</p>
+<p>差不多简单了解了这么多。因时间以及能力原因我只是简单测试所得。其中估计会有不恰当或者错误的地方。在之后的学习中如果有发现会后续补充。如果有看到的同学还是要多实践以及阅读源码。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>客官扫码领红包哟~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alired.png" alt="shaorxcn 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HexoAndgithub 建立自己的博客.html" rel="next" title="HexoAndGithub建立博客">
+                <i class="fa fa-chevron-left"></i> HexoAndGithub建立博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/golang建站-1.html" rel="prev" title="Golang建站(1)">
+                Golang建站(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTU0NC8xODA5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="shaorxcn" />
+            
+              <p class="site-author-name" itemprop="name">shaorxcn</p>
+              <p class="site-description motion-element" itemprop="description">The more you pay , the more you will gain.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ShaorxCN" title="GitHub &rarr; https://github.com/ShaorxCN" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#reflect大概"><span class="nav-number">1.</span> <span class="nav-text">reflect大概</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型与方法"><span class="nav-number">1.1.</span> <span class="nav-text">类型与方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体使用"><span class="nav-number">1.2.</span> <span class="nav-text">具体使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect-Type"><span class="nav-number">1.2.1.</span> <span class="nav-text">reflect.Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflect-Value"><span class="nav-number">1.2.2.</span> <span class="nav-text">reflect.Value</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shaorxcn</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+    <script>
+      window.livereOptions = {
+        refer: 'golang-Package-reflect简单了解（1）.html'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
