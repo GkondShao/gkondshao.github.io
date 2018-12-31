@@ -104,29 +104,26 @@
 
 
 
-  <meta name="description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
-git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
+  <meta name="description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vps与hexo 建站">
-<meta property="og:url" content="http://blog.evanshao.com/vps与hexo-建站.html">
+<meta property="og:title" content="groupcache尝试">
+<meta property="og:url" content="http://blog.evanshao.com/posts/46701/index.html">
 <meta property="og:site_name" content="GO!">
-<meta property="og:description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
-git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
-<meta property="og:image" content="http://blog.evanshao.com/images/godaddy1.png">
-<meta property="og:image" content="http://blog.evanshao.com/images/godaddy2.png">
-<meta property="og:updated_time" content="2018-12-17T12:04:16.853Z">
+<meta property="og:description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
+<meta property="og:updated_time" content="2018-12-17T12:04:16.821Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vps与hexo 建站">
-<meta name="twitter:description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
-git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
-<meta name="twitter:image" content="http://blog.evanshao.com/images/godaddy1.png">
+<meta name="twitter:title" content="groupcache尝试">
+<meta name="twitter:description" content="最近准备尝试下groupcache，所以写了个demo.并在这里记录下，以备后面查漏补缺
+这里仅仅记录下重要的几个方法吧1234567891011121314//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口//默认地址是/_groupcache/groupName/keyValuefunc NewHTTPPool(self string) *H">
 
 
 
 
 
 
-  <link rel="canonical" href="http://blog.evanshao.com/vps与hexo-建站.html"/>
+  <link rel="canonical" href="http://blog.evanshao.com/posts/46701/"/>
 
 
 
@@ -136,7 +133,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
   };
 </script>
 
-  <title>vps与hexo 建站 | GO!</title>
+  <title>groupcache尝试 | GO!</title>
   
 
 
@@ -334,7 +331,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/vps与hexo-建站.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/posts/46701/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shaorxcn">
@@ -351,7 +348,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
 
         
         
-          <h2 class="post-title" itemprop="name headline">vps与hexo 建站
+          <h2 class="post-title" itemprop="name headline">groupcache尝试
 
               
             
@@ -377,7 +374,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
                 
               
 
-              <time title="创建时间：2017-11-19 19:05:43" itemprop="dateCreated datePublished" datetime="2017-11-19T19:05:43+08:00">2017-11-19</time>
+              <time title="创建时间：2017-05-15 22:41:09" itemprop="dateCreated datePublished" datetime="2017-05-15T22:41:09+08:00">2017-05-15</time>
             
 
             
@@ -411,7 +408,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/groupcache/" itemprop="url" rel="index"><span itemprop="name">groupcache</span></a></span>
 
                 
                 
@@ -445,32 +442,10 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
       
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>很久之前,在开始写blog的时候，第一篇就是<a href="http://blog.evanshao.com/2016/08/11/Hexo&amp;github%20%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo以及github搭建自己的个人博客</a>。当时是参照的朋友的<a href="http://shiweicn.github.io/2015/04/01/hexo-github-blog/" target="_blank" rel="external">博客</a>写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.</p>
-<h2 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h2><p>之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是为git单独创建一个用户。具体命令如下,比如用户名就是git。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># root下创建git用户</div><div class="line">useradd git</div><div class="line"># 修改密码</div><div class="line">passwd git</div></pre></td></tr></table></figure>
-<p>然后切换到git用户并切换到对应目录。这里选择使用ssh认证,所以要做相应的准备。并将公钥上传至服务器.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir .ssh &amp;&amp; chmod 700 .ssh</div><div class="line">touch .ssh/authorized_keys &amp;&amp; chmod 600 .ssh/authorized_keys</div><div class="line"></div><div class="line"># 将公钥文件追加到认证文件中。需要预先将公钥文件上传至服务。</div><div class="line">cat xxxx.pub &gt;&gt; ~/.ssh/authorized_keys</div></pre></td></tr></table></figure></p>
-<p>然后为了安全考虑，将git用户限制仅能使用git-shell，也就是禁止ssh登陆进行操作，比如多人协作的情况下就有必要做这样的限制了。这里自己考虑设置即可。使用<code>chsh git -s $(which git-shell)</code>指令即可,一般来说，安装git都会自带git-shell的。这里就直接使用了。</p>
-<p>到此，服务器的认证工作就准备结束。接下里就是新建git仓库.<br>以blog为例.在git用户目录下执行以下操作.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建仓库文件夹</div><div class="line">mkdir blog.git</div><div class="line">cd blog.git</div><div class="line"># bare 是仅仅支持git更新，本地是不能直接操作git仓库的 --share则是默认权限</div><div class="line">git init --bare --shared</div></pre></td></tr></table></figure>
-<p>这时候就可以在本地机器中git clone检查下是否生效。</p>
-<p><code>git clone ssh://git@host:port/home/userName/blog.git</code></p>
-<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>_config.yml</code> 文件中的repo使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
-<p>最后一步就是如何将hexo 博客项目部署到nginx了。当然前提是安装好nginx.这里就不多做描述。(其中需要注意的是如果想仅仅在git用户下就完成所有操作的话，需要注意nginx安装时–prefix指定安装目录.还有就是非root用户不能使用1024以下端口问题，可以考虑使用以下命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># xxx为nginx启动文件目录</div><div class="line">setcap cap_net_bind_service=ep xxxx</div></pre></td></tr></table></figure>
-<p>这样就能以git用户启动nginx了。当然还有其他解决方法，这里不多说了。<br>最后则是修改blog.git/hooks中的post-update文件实现每次更新时自动将html文件部署到nginx。具体内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line"># 自己替换nginx目录</div><div class="line">cd xxxx/nginx/html/</div><div class="line"># 自己替换仓库目录</div><div class="line">git clone xxxx/blog.git</div><div class="line">cp -rf blog/* .</div><div class="line">rm -rf blog</div></pre></td></tr></table></figure>
-<p>这样就实现每次提交后自动发布的功能了，这时候已经可以直接用vps的ip访问看看了。</p>
-<p>当然这里可以考虑在nginx中增加限流设置。常见的比如:<br>http下<br>limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;<br>server下<br>limit_req zone=one burst=5 nodelay;<br>(限制请求数策略平均10/s )</p>
-<p>http下:<br>limit_conn_zone $binary_remote_addr zone=addr:10m;<br>server下:<br>limit_conn addr 1<br>（限制单ip连接数1）</p>
-<p>…等等等等依据自己实际情况设置。</p>
-<p>这里为止，git服务器就搭建好了。</p>
-<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>这时候依旧只能通过ip访问，我们需要去购买一个域名，这个可以参考开头给出的我朋友的博客内容。重点是如何绑定呢。这里以godaddy为例。先点击用户下的我的产品进入以下页面<br><img src="/images/godaddy1.png" alt="sorry,the pic is missing"></p>
-<p>接着点击图中框出的DNS按钮，接着点击右下角的添加.出现如下图的界面</p>
-<p><img src="/images/godaddy2.png" alt="sorry,the pic is missing"></p>
-<p>其中类型选择A,主机@就是默认域名，如果填充内容的话就类似是二级域名。比如填充test就是test.xxx….指向就是vps的公网地址了。填写完成之后保存。就可以等待生效了。这时候还记得上面提到的git clone的地址以及config文件中修改的remote地址吗。这里就可以用域名替换ip地址了,不过依旧会被转换回来..</p>
-<p>具体的域名绑定可以参考这篇<a href="http://godaddy.idcspy.com/godaddy-jx" target="_blank" rel="external">文章</a></p>
-<p>至此，所有的内容就都结束了~</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>很久没更了,刚好重新开始，顺便填个坑。内容不多，写的很难受，表达的也很奇怪。但是作为新的开始，希望自己能够坚持下去。其实这种方式费时费力，不如买个域名直接链接到简书一类的网站，那就轻松很多了~</p>
+        <p>最近准备尝试下groupcache，所以写了个<a href="https://github.com/ShaorxCN/blogCode/tree/master/groupcachetest" target="_blank" rel="external">demo</a>.并在这里记录下，以备后面查漏补缺</p>
+<p>这里仅仅记录下重要的几个方法吧<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口</span></div><div class="line"><span class="comment">//默认地址是/_groupcache/groupName/keyValue</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewHTTPPool</span><span class="params">(self <span class="keyword">string</span>)</span> *<span class="title">HTTPPool</span></span></div><div class="line"></div><div class="line">//更新<span class="title">httppool</span>,设置<span class="title">peers</span>来相互通信，如果启动的节点和这里<span class="title">set</span>的不一致的话就无法在<span class="title">peers</span>之间通信</div><div class="line"><span class="title">func</span> <span class="params">(p *HTTPPool)</span> <span class="title">Set</span><span class="params">(peers ...<span class="keyword">string</span>)</span></div><div class="line"></div><div class="line"></div><div class="line">//创建一个<span class="title">group</span>,<span class="title">groupcache</span>对数据的操作其实是围绕<span class="title">group</span>来做的<span class="params">(HTTPPool是为了实现分布式)</span></div><div class="line">//参数分别为<span class="title">groupName</span>,缓存大小，当缓存不存在时从<span class="title">slowDb</span>获取数据的<span class="title">getter</span>方法</div><div class="line"><span class="title">func</span> <span class="title">NewGroup</span><span class="params">(name <span class="keyword">string</span>, cacheBytes <span class="keyword">int64</span>, getter Getter)</span> *<span class="title">Group</span></div><div class="line"></div><div class="line">//从对应的<span class="title">group</span>中获取<span class="title">key</span>的方法。还有什么<span class="title">Name</span>一类的就不提了</div><div class="line"><span class="title">func</span> <span class="params">(g *Group)</span> <span class="title">Get</span><span class="params">(ctx Context, key <span class="keyword">string</span>, dest Sink)</span> <span class="title">error</span></div></pre></td></tr></table></figure></p>
+<p>不过groupcache和memcache是不一样的，他无法更新缓存。所以比较适合一些例如资源下载的情况?现在工作中很少有适合他的使用场景，所以也不是很了解。仅有的一个应该是之前写的影像控件补丁下载的功能.</p>
+<p>对了，还有位国外大神写了个Demo,我看很多博客里的图都是引用他的。那个例子就是从slowDb开始做了一套的简单实现,而且和rpc结合在一起了，更加的详细.代码在<a href="https://github.com/capotej/groupcache-db-experiment" target="_blank" rel="external">这里</a></p>
 
       
     </div>
@@ -518,7 +493,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
           
         </div>
       
@@ -531,8 +506,8 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/msyql笔记.html" rel="next" title="msyql笔记">
-                <i class="fa fa-chevron-left"></i> msyql笔记
+              <a href="/posts/46803/" rel="next" title="理解golang的context包">
+                <i class="fa fa-chevron-left"></i> 理解golang的context包
               </a>
             
           </div>
@@ -541,8 +516,8 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/nginx-超简单的入门基础教程.html" rel="prev" title="nginx:超简单超详细的入门说明">
-                nginx:超简单超详细的入门说明 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/59908/" rel="prev" title="msyql笔记">
+                msyql笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -593,17 +568,8 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -722,22 +688,6 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git服务器搭建"><span class="nav-number">2.</span> <span class="nav-text">git服务器搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名绑定"><span class="nav-number">3.</span> <span class="nav-text">域名绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -885,7 +835,7 @@ git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的g
   
     <script>
       window.livereOptions = {
-        refer: 'vps与hexo-建站.html'
+        refer: 'posts/46701/'
       };
       (function(d, s) {
         var j, e = d.getElementsByTagName(s)[0];

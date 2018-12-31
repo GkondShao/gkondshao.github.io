@@ -104,26 +104,29 @@
 
 
 
-  <meta name="description" content="感觉偷懒好久都没有写博客了,最近再开始写吧.
-概述golang的context包,中文有叫做上下文的,是对程序单元运行环境的一个整体的描述.这个概念很抽象,但是在golang里,主要是用来在调用层级间传递需要用到的请求数据等.当然传递数据不是可以用channel吗?这也是可以的,但是context主要是解决一个层级的关系问题.当顶层调用取消,后面的请求也应该全部取消.这一点我们可以通过信号来实现,">
+  <meta name="description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
+git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解golang的context包">
-<meta property="og:url" content="http://blog.evanshao.com/理解golang的context包.html">
+<meta property="og:title" content="vps与hexo 建站">
+<meta property="og:url" content="http://blog.evanshao.com/posts/45828/index.html">
 <meta property="og:site_name" content="GO!">
-<meta property="og:description" content="感觉偷懒好久都没有写博客了,最近再开始写吧.
-概述golang的context包,中文有叫做上下文的,是对程序单元运行环境的一个整体的描述.这个概念很抽象,但是在golang里,主要是用来在调用层级间传递需要用到的请求数据等.当然传递数据不是可以用channel吗?这也是可以的,但是context主要是解决一个层级的关系问题.当顶层调用取消,后面的请求也应该全部取消.这一点我们可以通过信号来实现,">
-<meta property="og:updated_time" content="2018-12-17T12:04:16.837Z">
+<meta property="og:description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
+git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
+<meta property="og:image" content="http://blog.evanshao.com/images/godaddy1.png">
+<meta property="og:image" content="http://blog.evanshao.com/images/godaddy2.png">
+<meta property="og:updated_time" content="2018-12-17T12:04:16.853Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解golang的context包">
-<meta name="twitter:description" content="感觉偷懒好久都没有写博客了,最近再开始写吧.
-概述golang的context包,中文有叫做上下文的,是对程序单元运行环境的一个整体的描述.这个概念很抽象,但是在golang里,主要是用来在调用层级间传递需要用到的请求数据等.当然传递数据不是可以用channel吗?这也是可以的,但是context主要是解决一个层级的关系问题.当顶层调用取消,后面的请求也应该全部取消.这一点我们可以通过信号来实现,">
+<meta name="twitter:title" content="vps与hexo 建站">
+<meta name="twitter:description" content="写在前面很久之前,在开始写blog的时候，第一篇就是如何用hexo以及github搭建自己的个人博客。当时是参照的朋友的博客写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.
+git服务器搭建之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是">
+<meta name="twitter:image" content="http://blog.evanshao.com/images/godaddy1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://blog.evanshao.com/理解golang的context包.html"/>
+  <link rel="canonical" href="http://blog.evanshao.com/posts/45828/"/>
 
 
 
@@ -133,7 +136,7 @@
   };
 </script>
 
-  <title>理解golang的context包 | GO!</title>
+  <title>vps与hexo 建站 | GO!</title>
   
 
 
@@ -331,7 +334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/理解golang的context包.html">
+    <link itemprop="mainEntityOfPage" href="http://blog.evanshao.com/posts/45828/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shaorxcn">
@@ -348,7 +351,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">理解golang的context包
+          <h2 class="post-title" itemprop="name headline">vps与hexo 建站
 
               
             
@@ -374,7 +377,7 @@
                 
               
 
-              <time title="创建时间：2017-05-02 15:03:56" itemprop="dateCreated datePublished" datetime="2017-05-02T15:03:56+08:00">2017-05-02</time>
+              <time title="创建时间：2017-11-19 19:05:43" itemprop="dateCreated datePublished" datetime="2017-11-19T19:05:43+08:00">2017-11-19</time>
             
 
             
@@ -408,7 +411,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Golang杂记/" itemprop="url" rel="index"><span itemprop="name">Golang杂记</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a></span>
 
                 
                 
@@ -442,23 +445,32 @@
       
 
       
-        <p>感觉偷懒好久都没有写博客了,最近再开始写吧.</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>golang的context包,中文有叫做上下文的,是对程序单元运行环境的一个整体的描述.这个概念很抽象,但是在golang里,主要是用来在调用层级间传递需要用到的请求数据等.当然传递数据不是可以用channel吗?这也是可以的,但是context主要是解决一个层级的关系问题.当顶层调用取消,后面的请求也应该全部取消.这一点我们可以通过信号来实现,其实官方也是通过一个channel来监控的.</p>
-<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><p>下午看了下context包源码,代码很简单.大概理解如下记录,方面以后的查漏补缺.</p>
-<p>context.Context中两个重要的interface以及四种类型:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// A canceler is a context type that can be canceled directly. The</span></div><div class="line"><span class="comment">// implementations are *cancelCtx and *timerCtx.</span></div><div class="line"><span class="keyword">type</span> canceler <span class="keyword">interface</span> &#123;</div><div class="line">    cancel(removeFromParent <span class="keyword">bool</span>, err error)</div><div class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span> &#123;</div><div class="line">    Deadline() (deadline time.Time, ok <span class="keyword">bool</span>)</div><div class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</div><div class="line">    Err() error</div><div class="line">    Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//这四种类型其实就是我们常用到的context</span></div><div class="line"><span class="keyword">type</span> emptyCtx <span class="keyword">int</span><span class="comment">//最基础的context</span></div><div class="line"></div><div class="line"><span class="keyword">type</span> cancelCtx <span class="keyword">struct</span> &#123;</div><div class="line">    Context</div><div class="line">    done <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125; <span class="comment">// closed by the first cancel call.</span></div><div class="line">    mu       sync.Mutex</div><div class="line">    children <span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125; <span class="comment">// set to nil by the first cancel call</span></div><div class="line">    err      error                 <span class="comment">// set to non-nil by the first cancel call</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> timerCtx <span class="keyword">struct</span> &#123;</div><div class="line">    cancelCtx</div><div class="line">    timer *time.Timer <span class="comment">// Under cancelCtx.mu.</span></div><div class="line">    deadline time.Time</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> valueCtx <span class="keyword">struct</span> &#123;</div><div class="line">    Context</div><div class="line">    key, val <span class="keyword">interface</span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们在使用context的时候大部分都是在顶端使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Background</span><span class="params">()</span> <span class="title">Context</span></span></div></pre></td></tr></table></figure></p>
-<p>方法来创建顶级context.和context.TODO()方法一样，他们返回的context其实就是emptyCtx.没有value,也没有deadline.<br>而实际使用过程中我们还会使用下面的四个方法<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithCancel</span><span class="params">(parent Context)</span> <span class="params">(ctx Context, cancel CancelFunc)</span></span></div><div class="line"><span class="title">func</span> <span class="title">WithDeadline</span><span class="params">(parent Context, deadline time.Time)</span> <span class="params">(Context, CancelFunc)</span></div><div class="line"><span class="title">func</span> <span class="title">WithTimeout</span><span class="params">(parent Context, timeout time.Duration)</span> <span class="params">(Context, CancelFunc)</span></div><div class="line"><span class="title">func</span> <span class="title">WithValue</span><span class="params">(parent Context, key, val <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Context</span></div></pre></td></tr></table></figure></p>
-<p>其中<code>cancel CancelFunc</code>是一个function,可以通过使用他来cancel对应的context.这四个里<code>WithValue</code>是最简单的，它仅仅是在parentContext的基础上附加了一个key值以及对应的value,正如上面valueCtx所展示的那样，是一个struct{},其中的Context就是parentContext.获取你附加的value也很简单，使用<code>Value(key interface{}) interface{}</code>即可,他会自下而上的逐层查看直到返回与key对应的value.</p>
-<p>而其他的三个方法其实都是建立在cancelCtx上的,其中<code>WithTimeout</code>就是调用的<code>WithDeadline</code>方法,而<code>WithDeadline</code>其实就是在<code>cancelCtx</code>的基础上增加了<code>deadline</code>以及<code>timer</code>这里就不再描述.</p>
-<p>最后也是最重要的context的父子关系或者说层级关系.实际上<code>CancelFunc</code>的函数体是这样的:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; c.cancel(<span class="literal">true</span>, Canceled)</div></pre></td></tr></table></figure></p>
-<p>c就是方法即将返回的context，他同时也实现了canceler接口,Canceled则是自定义的error:<code>var Canceled = errors.New(&quot;context canceled&quot;)</code><br>第一个参数是指的在cancel的时候是否将其从父context的孩子节点中移除，默认是true.这里的children用一个map来存储，在需要的时候<code>delete</code>即可.</p>
-<p>context.go文件里的代码真的很少，其实主要的就是上面讲的几个方法或者type,剩下的都是一些辅助方法比如如何返回一个子级上下文的父级上下文以及在cancel的时候注意遍历下子级上下文重复cancel的动作或者是否removeFromParent.而这里的从父级上下文中移除实际就是在cancel之后操作map做delete().这是下午单位断电后抽空拿本子看了下代码，本身博客就没写多少中间还隔了一段时间没写，感觉完全不知道写什么，很尴尬，后面在多写多练习吧.最后写下go doc中对于使用context的几点建议吧</p>
-<ul>
-<li>不要将需要的传递的context包含在一个struct中,而且在需要传递context的函数参数列表中将context放在最前面作为第一个参数,就好像下面写的这样:<code>func DoSomething(ctx context.Context, arg Arg) error</code></li>
-<li>哪怕方法允许也不要传递一个nil的Context,如果确实不确定使用哪种context,请使用context.TODO()</li>
-<li>context的Value仅仅用在程序以及API交互的请求周期中传递的数据上，别用在给函数传递一些可选的参数</li>
-<li>context可以传递给不同goroutine来执行,同时在多个goroutine中使用是安全的<br>（原谅我的渣翻译）</li>
-</ul>
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>很久之前,在开始写blog的时候，第一篇就是<a href="http://blog.evanshao.com/2016/08/11/Hexo&amp;github%20%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo以及github搭建自己的个人博客</a>。当时是参照的朋友的<a href="http://shiweicn.github.io/2015/04/01/hexo-github-blog/" target="_blank" rel="external">博客</a>写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.</p>
+<h2 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h2><p>之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是为git单独创建一个用户。具体命令如下,比如用户名就是git。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># root下创建git用户</div><div class="line">useradd git</div><div class="line"># 修改密码</div><div class="line">passwd git</div></pre></td></tr></table></figure>
+<p>然后切换到git用户并切换到对应目录。这里选择使用ssh认证,所以要做相应的准备。并将公钥上传至服务器.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir .ssh &amp;&amp; chmod 700 .ssh</div><div class="line">touch .ssh/authorized_keys &amp;&amp; chmod 600 .ssh/authorized_keys</div><div class="line"></div><div class="line"># 将公钥文件追加到认证文件中。需要预先将公钥文件上传至服务。</div><div class="line">cat xxxx.pub &gt;&gt; ~/.ssh/authorized_keys</div></pre></td></tr></table></figure></p>
+<p>然后为了安全考虑，将git用户限制仅能使用git-shell，也就是禁止ssh登陆进行操作，比如多人协作的情况下就有必要做这样的限制了。这里自己考虑设置即可。使用<code>chsh git -s $(which git-shell)</code>指令即可,一般来说，安装git都会自带git-shell的。这里就直接使用了。</p>
+<p>到此，服务器的认证工作就准备结束。接下里就是新建git仓库.<br>以blog为例.在git用户目录下执行以下操作.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建仓库文件夹</div><div class="line">mkdir blog.git</div><div class="line">cd blog.git</div><div class="line"># bare 是仅仅支持git更新，本地是不能直接操作git仓库的 --share则是默认权限</div><div class="line">git init --bare --shared</div></pre></td></tr></table></figure>
+<p>这时候就可以在本地机器中git clone检查下是否生效。</p>
+<p><code>git clone ssh://git@host:port/home/userName/blog.git</code></p>
+<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>_config.yml</code> 文件中的repo使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
+<p>最后一步就是如何将hexo 博客项目部署到nginx了。当然前提是安装好nginx.这里就不多做描述。(其中需要注意的是如果想仅仅在git用户下就完成所有操作的话，需要注意nginx安装时–prefix指定安装目录.还有就是非root用户不能使用1024以下端口问题，可以考虑使用以下命令，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># xxx为nginx启动文件目录</div><div class="line">setcap cap_net_bind_service=ep xxxx</div></pre></td></tr></table></figure>
+<p>这样就能以git用户启动nginx了。当然还有其他解决方法，这里不多说了。<br>最后则是修改blog.git/hooks中的post-update文件实现每次更新时自动将html文件部署到nginx。具体内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line"># 自己替换nginx目录</div><div class="line">cd xxxx/nginx/html/</div><div class="line"># 自己替换仓库目录</div><div class="line">git clone xxxx/blog.git</div><div class="line">cp -rf blog/* .</div><div class="line">rm -rf blog</div></pre></td></tr></table></figure>
+<p>这样就实现每次提交后自动发布的功能了，这时候已经可以直接用vps的ip访问看看了。</p>
+<p>当然这里可以考虑在nginx中增加限流设置。常见的比如:<br>http下<br>limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;<br>server下<br>limit_req zone=one burst=5 nodelay;<br>(限制请求数策略平均10/s )</p>
+<p>http下:<br>limit_conn_zone $binary_remote_addr zone=addr:10m;<br>server下:<br>limit_conn addr 1<br>（限制单ip连接数1）</p>
+<p>…等等等等依据自己实际情况设置。</p>
+<p>这里为止，git服务器就搭建好了。</p>
+<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>这时候依旧只能通过ip访问，我们需要去购买一个域名，这个可以参考开头给出的我朋友的博客内容。重点是如何绑定呢。这里以godaddy为例。先点击用户下的我的产品进入以下页面<br><img src="/images/godaddy1.png" alt="sorry,the pic is missing"></p>
+<p>接着点击图中框出的DNS按钮，接着点击右下角的添加.出现如下图的界面</p>
+<p><img src="/images/godaddy2.png" alt="sorry,the pic is missing"></p>
+<p>其中类型选择A,主机@就是默认域名，如果填充内容的话就类似是二级域名。比如填充test就是test.xxx….指向就是vps的公网地址了。填写完成之后保存。就可以等待生效了。这时候还记得上面提到的git clone的地址以及config文件中修改的remote地址吗。这里就可以用域名替换ip地址了,不过依旧会被转换回来..</p>
+<p>具体的域名绑定可以参考这篇<a href="http://godaddy.idcspy.com/godaddy-jx" target="_blank" rel="external">文章</a></p>
+<p>至此，所有的内容就都结束了~</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>很久没更了,刚好重新开始，顺便填个坑。内容不多，写的很难受，表达的也很奇怪。但是作为新的开始，希望自己能够坚持下去。其实这种方式费时费力，不如买个域名直接链接到简书一类的网站，那就轻松很多了~</p>
 
       
     </div>
@@ -506,7 +518,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Golang/" rel="tag"># Golang</a>
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
           
         </div>
       
@@ -519,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/golang知乎爬虫小试.html" rel="next" title="golang知乎爬虫小试">
-                <i class="fa fa-chevron-left"></i> golang知乎爬虫小试
+              <a href="/posts/59908/" rel="next" title="msyql笔记">
+                <i class="fa fa-chevron-left"></i> msyql笔记
               </a>
             
           </div>
@@ -529,8 +541,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/groupcache尝试.html" rel="prev" title="groupcache尝试">
-                groupcache尝试 <i class="fa fa-chevron-right"></i>
+              <a href="/posts/2795/" rel="prev" title="nginx:超简单超详细的入门说明">
+                nginx:超简单超详细的入门说明 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -720,7 +732,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体使用"><span class="nav-number">2.</span> <span class="nav-text">具体使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git服务器搭建"><span class="nav-number">2.</span> <span class="nav-text">git服务器搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名绑定"><span class="nav-number">3.</span> <span class="nav-text">域名绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
@@ -873,7 +885,7 @@
   
     <script>
       window.livereOptions = {
-        refer: '理解golang的context包.html'
+        refer: 'posts/45828/'
       };
       (function(d, s) {
         var j, e = d.getElementsByTagName(s)[0];
