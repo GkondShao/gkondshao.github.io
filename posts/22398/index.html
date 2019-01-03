@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://blog.evanshao.com/images/lbserverA.png">
 <meta property="og:image" content="https://blog.evanshao.com/images/lbserverB.png">
 <meta property="og:image" content="https://blog.evanshao.com/images/vps.png">
-<meta property="og:updated_time" content="2018-12-31T17:34:01.733Z">
+<meta property="og:updated_time" content="2019-01-03T12:59:57.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx:反向代理实例">
 <meta name="twitter:description" content="借助docker展现的nginx反向代理实例以及搬瓦工与GFW的爱恨情仇">
@@ -392,7 +392,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-01 01:34:01" itemprop="dateModified" datetime="2019-01-01T01:34:01+08:00">2019-01-01</time>
+                <time title="修改时间：2019-01-03 20:59:57" itemprop="dateModified" datetime="2019-01-03T20:59:57+08:00">2019-01-03</time>
               
             
           </span>
@@ -460,6 +460,7 @@
 <p>重点是sites下需要两个新建的配置文件,<br>一个是ups.http.upstream:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream test_server&#123;</div><div class="line">	server serverA:8081;</div><div class="line">	server serverB:8081;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这里其实是有两个注意点的,一个是serverA 这个是配合后面的dockerDNS使用的,还有个自然是端口号,和server程序监听的端口号一致.</p>
 <p>另外一个文件是 ups.http.conf,这里在开头引用了upsream文件,并利用proxy_pass实现了转发.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">include sites/ups.http.upstream;</div><div class="line">server&#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	server_name localhost;</div><div class="line">	access_log logs/ups.log main;</div><div class="line">	</div><div class="line">	location /&#123;</div><div class="line">		set $upstream_host $host;</div><div class="line">		proxy_pass http://test_server;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这边是Dockerfile,myconf下就是上面的文件nginx.conf以及sites文件夹,sites里是其他两个文件.另外还创建了一个空的logs文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FROM nginx</div><div class="line">MAINTAINER evan</div><div class="line">COPY myconf/  /etc/nginx</div><div class="line">EXPOSE 80</div><div class="line">ENTRYPOINT [&quot;nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</div></pre></td></tr></table></figure></p>
 <p>到这里实验环境就准备好了,下面其实就是docker部分了,时间有限,这里仅仅提下使用方法.如果docker没有安装的话可以参考官方文档进行操作,后面有机会我也会开始写一些docker的简单教程~</p>
 <p>上文提到的dockerDNS其实是docker提供的一种容器间通信的方法.具体的就不赘述了,如果有兴趣的话可以自行搜索或者等我的blog哦.<br>首先我们要创建自己的docker子网<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker network create --driver bridge --subnet 172.22.16.0/24 --gateway 172.22.16.1 my_net</div></pre></td></tr></table></figure></p>
 <p>这里相当于创建了一个局域网,网段是172.22.16.然后在运行server和nginx容器的时候我会把他们都指定到这个网段,这样才能保证局域网内各容器的网络通信.<br>接下来首先启动两台server容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -itd --rm --name serverA --hostname serverA --network=my_net evanshao/lbserver</div></pre></td></tr></table></figure></p>
