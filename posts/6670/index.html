@@ -104,23 +104,26 @@
 
 
 
-  <meta name="description" content="The more you pay , the more you will gain.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://blog.evanshao.com/categories/index.html">
+  <meta name="description" content="笔记本刷成Debian后很久没用virtualBox了, 结果发现很多东西都忘记了,这边还是记录下吧:通过安装GuestAdditions实现分辨率切换以及物理机和虚拟机间共享文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VirtualBox安装GuestAdditions速记">
+<meta property="og:url" content="https://blog.evanshao.com/posts/6670/index.html">
 <meta property="og:site_name" content="GO!">
-<meta property="og:description" content="The more you pay , the more you will gain.">
-<meta property="og:updated_time" content="2016-08-10T11:22:20.333Z">
+<meta property="og:description" content="笔记本刷成Debian后很久没用virtualBox了, 结果发现很多东西都忘记了,这边还是记录下吧:通过安装GuestAdditions实现分辨率切换以及物理机和虚拟机间共享文件">
+<meta property="og:image" content="https://blog.evanshao.com/images/GuestAdditionImport.png">
+<meta property="og:image" content="https://blog.evanshao.com/images/GuestAdditionRom.png">
+<meta property="og:updated_time" content="2019-05-21T09:32:04.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="The more you pay , the more you will gain.">
+<meta name="twitter:title" content="VirtualBox安装GuestAdditions速记">
+<meta name="twitter:description" content="笔记本刷成Debian后很久没用virtualBox了, 结果发现很多东西都忘记了,这边还是记录下吧:通过安装GuestAdditions实现分辨率切换以及物理机和虚拟机间共享文件">
+<meta name="twitter:image" content="https://blog.evanshao.com/images/GuestAdditionImport.png">
 
 
 
 
 
 
-  <link rel="canonical" href="https://blog.evanshao.com/categories/"/>
+  <link rel="canonical" href="https://blog.evanshao.com/posts/6670/"/>
 
 
 
@@ -130,7 +133,7 @@
   };
 </script>
 
-  <title>categories | GO!</title>
+  <title>VirtualBox安装GuestAdditions速记 | GO!</title>
   
 
 
@@ -249,7 +252,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -288,25 +291,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -333,90 +317,215 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.evanshao.com/posts/6670/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shaorxcn">
+      <meta itemprop="description" content="The more you pay , the more you will gain.">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GO!">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h2 class="post-title" itemprop="name headline">categories
-
-</h2>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                目前共计 9 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/GoInAction笔记/">GoInAction笔记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang学习/">Golang学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang建站/">Golang建站</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Golang杂记/">Golang杂记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/groupcache/">groupcache</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+          <h2 class="post-title" itemprop="name headline">VirtualBox安装GuestAdditions速记
+
+              
+            
+          </h2>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 22:27:08" itemprop="dateCreated datePublished" datetime="2019-05-20T22:27:08+08:00">2019-05-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-21 17:32:04" itemprop="dateModified" datetime="2019-05-21T17:32:04+08:00">2019-05-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">笔记本刷成Debian后很久没用virtualBox了, 结果发现很多东西都忘记了,这边还是记录下吧:通过安装GuestAdditions实现分辨率切换以及物理机和虚拟机间共享文件</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="准备素材"><a href="#准备素材" class="headerlink" title="准备素材"></a>准备素材</h1><p>   我这边安装的是debian9，然后可以通过这链接下载<a href="http://download.virtualbox.org/virtualbox/6.0.0_RC1/VBoxGuestAdditions_6.0.0_RC1.iso" target="_blank" rel="external">GuestAddition</a>.</p>
+<h1 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h1><p>  下载完成之后,点击虚拟机上方工具栏的 <strong>设备</strong> ,然后在 <strong>分配光驱</strong> 一栏中选择下载好的GuestAddition镜像,如果没有的话点击<strong>选择虚拟盘</strong> ,然后选择打开下载好的iso文件即可.如下图所示:</p>
+<p>  <img src="/images/GuestAdditionImport.png" alt="sorry,this pic is missing"></p>
+<p>  然后就是将iso文件挂载到自己的系统中,<code>lsblk</code> 查看下设备号.</p>
+<p>  <img src="/images/GuestAdditionRom.png" alt="sorry,this pic is missing"></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /mnt/cdrom</div><div class="line">mount /dev/sr0  /mnt/cdrom</div></pre></td></tr></table></figure>
+<p>  然后自然就是进入挂载目录运行安装脚本</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /mnt/cdrom</div><div class="line">./VBoxLinuxAdditions.run</div></pre></td></tr></table></figure>
+<p> 不过这时候可能会遇到一些问题,<strong>please install the gcc make perl packages from your distribution</strong>.这就是我当时遇到的一个错误提示,apt-cache 也没找到对应的包,最后发现是要安装与系统对应的开发工具,命令如下:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install build-essential linux-headers-$(uname -r)</div></pre></td></tr></table></figure>
+<p> 然后再运行脚本就ok了.</p>
+<p> 当初第一次安装GuestAddition的时候确实是ok的,可能是因为当时正在捣鼓系统,开发工具已经安装了.但是没有记录,果然好记性不如烂笔头.我之前写blog写着写着就感觉没意思了,因为发现这些东西都是可以搜到的甚至很多都是官网写好的.瞬间就失去了动力,感觉做的事情很多余,现在发现记下来还是有好处哒~所以就有了这篇速记~</p>
+<p> 对了如果需要的话还是需要安装下内核头文件的~<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install  linux-headers-$(uname -r)</div></pre></td></tr></table></figure></p>
+<p> 编译很多系统级别的软件还是需要的。</p>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>客官扫码领红包哟~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alired.png" alt="shaorxcn 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/virtualbox/" rel="tag"># virtualbox</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/55269/" rel="next" title="Go语言Http简单介绍">
+                <i class="fa fa-chevron-left"></i> Go语言Http简单介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -451,8 +560,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -575,6 +693,22 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备素材"><span class="nav-number">1.</span> <span class="nav-text">准备素材</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装流程"><span class="nav-number">2.</span> <span class="nav-text">安装流程</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -722,7 +856,7 @@
   
     <script>
       window.livereOptions = {
-        refer: 'categories/index.html'
+        refer: 'posts/6670/'
       };
       (function(d, s) {
         var j, e = d.getElementsByTagName(s)[0];
