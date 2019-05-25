@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="同样是工作中有简单使用mongo,但是仅仅是基于增删改查.这边自己安装一个并且记录下crud的简单使用方法,以备查阅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongo速记一">
+<meta property="og:url" content="https://blog.evanshao.com/posts/62568/index.html">
+<meta property="og:site_name" content="GO!">
+<meta property="og:description" content="同样是工作中有简单使用mongo,但是仅仅是基于增删改查.这边自己安装一个并且记录下crud的简单使用方法,以备查阅">
+<meta property="og:updated_time" content="2019-05-25T11:43:01.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongo速记一">
+<meta name="twitter:description" content="同样是工作中有简单使用mongo,但是仅仅是基于增删改查.这边自己安装一个并且记录下crud的简单使用方法,以备查阅">
+
+
+
+
+
+
+  <link rel="canonical" href="https://blog.evanshao.com/posts/62568/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mongo速记一 | GO!</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GO!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.evanshao.com/posts/62568/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shaorxcn">
+      <meta itemprop="description" content="The more you pay , the more you will gain.">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GO!">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">mongo速记一
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-24 17:20:17" itemprop="dateCreated datePublished" datetime="2019-05-24T17:20:17+08:00">2019-05-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-25 19:43:01" itemprop="dateModified" datetime="2019-05-25T19:43:01+08:00">2019-05-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">同样是工作中有简单使用mongo,但是仅仅是基于增删改查.这边自己安装一个并且记录下crud的简单使用方法,以备查阅</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h1><p>就和描述里提到的一样,这次依旧是简单使用.crud以及聚合(管道)简单介绍.而且是基于单实例.写这个主要还是留作备份,以免以后长时间不用忘记了,到时候完整的看官方文档比较耗时间.所以这篇blog更多的是说明以及使用的一个例子.更多的option或者command不会列出,实际使用时可查寻官方文档~</p>
+<p>当然这里的所有内容都可以在<a href="https://docs.mongodb.com/manual/core/databases-and-collections/" target="_blank" rel="external">官网文档</a>中找到~</p>
+<h1 id="二-素材准备"><a href="#二-素材准备" class="headerlink" title="二.素材准备"></a>二.素材准备</h1><p>可以到官网下载server以及mongo shell</p>
+<p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="external">下载地址</a></p>
+<h1 id="三-安装以及数据库准备"><a href="#三-安装以及数据库准备" class="headerlink" title="三.安装以及数据库准备"></a>三.安装以及数据库准备</h1><p>我这边是debian,所以下载的是deb文件直接<code>dpkg -i</code>就可以了.<br>然后就是启动以及配置问题.很多选项都可以通过命令行的形式指定,但是这边还是建议通过配置文件来实现.默认的配置文件位于/etc/mongo.conf.这边可以复制出来修改使用.</p>
+<p>首先是storage也是是数据存储部分.debian下默认是在 /var/lib/mongodb,自然可以根据自己的需求来配置,修改下图的dbPath即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">storage:</div><div class="line">    dbPath: /var/lib/mongodb</div></pre></td></tr></table></figure>
+<p>systemLog部分则是日志存储位置,同样依照自己的需求修改即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemLog:</div><div class="line">    destination: file</div><div class="line">    logAppend: true</div><div class="line">    path: /var/log/mongodb/mongod.log</div></pre></td></tr></table></figure>
+<p>然后是通信的端口以及监听IP.这个和socket一样,可以选择本地还是内网还是公网.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">net:</div><div class="line">    port: 27017</div><div class="line">    bindIp: 127.0.0.1</div></pre></td></tr></table></figure>
+<p>这是他的默认配置也就是说仅仅支持本地访问.如果需要的可以在后面继续添加,比如增加局域网访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bindIp: 127.0.0.1,192.168.111.111</div></pre></td></tr></table></figure></p>
+<p>当然你也可以选择0.0.0.0 直接监听所有网络请求.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">security:</div><div class="line">    authorization:enabled</div></pre></td></tr></table></figure>
+<p>这个则是开启用户认证的模块.(还有很多内容参见官网,比如fork,oplogSize等)</p>
+<p>不过在开启之前需要新建一个用户,并且设置为admin用户,不然这个用户鉴权部分也就没有意义了.</p>
+<p>新建用户:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.createUser(&#123;user:"myAdmin",pwd:"xxxx",roles:[&#123;role:"userAdminAnyDatabase",db:"admin"&#125;,&#123;role:"dbAdmin",db:"admin"&#125;,&#123;role:"clusterAdmin",db:"admin"&#125;]&#125;)</div></pre></td></tr></table></figure>
+<p>这里简单说明下,userAdminAnyDatabase 则是赋予myAdmin用户所有db的用户管理权限,dbAdmin自然是管理自己的admin,clusterAdmin 则是集群的.这边如果遇到db.auth 认证日志出现两次结果,一次成功,一次replSet认证失败可以添加这个权限以继续下面的操作.</p>
+<p>还有就是admin用户仅仅是管理功能,并不包含read 和 write 权限.<br>当然权限还有很多,具体的可以参考这个<a href="https://www.cnblogs.com/dbabd/p/10811523.html" target="_blank" rel="external">链接</a>的文章.</p>
+<p>现在创建一个新的测试库,use 一个不存在的库他会自动创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">use testdb</div></pre></td></tr></table></figure></p>
+<p>这时候其实在<code>show dbs</code>的时候 testdb是不可见的,只有在插入数据的时候才可见.</p>
+<p>新建testdb的管理员:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.createUser(&#123;user:"testdbAdmin",pwd:"xxxx",roles:[&#123;role:"dbAdmin",db:"testdb"&#125;,&#123;role:"dbOwner",db:"testdb"&#125;]&#125;)</div></pre></td></tr></table></figure>
+<p>用户创建成功后就可以退出重新用testdb用户登录了:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">use testdb</div><div class="line">db.auth(&#123;user:"testdbAdmin",pwd:"xxxx"&#125;)</div></pre></td></tr></table></figure>
+<p>如果返回<code>1</code>就是认证成功了.</p>
+<p>创建一个测试集合testC并插入第一条数据(同样不存在自动创建):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.testC.insert(&#123;name:"first"&#125;)</div></pre></td></tr></table></figure>
+<p>如果返回WriteResult({“nInserted”:1})则说明插入成功了,这时候如果在另外一个mongo shell中myAdmin用户登录，查看所有数据库<code>show dbs</code>会发现testdb 已经可以正常显示了.</p>
+<h1 id="四-CRUD"><a href="#四-CRUD" class="headerlink" title="四.CRUD"></a>四.CRUD</h1><h2 id="插入"><a href="#插入" class="headerlink" title="插入:"></a>插入:</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collectionName.insert()</div><div class="line">db.collectionName.insertOne(&#123;xxx:xxx&#125;)</div><div class="line">db.collectionName.insertMany([&#123;xxx:xxx&#125;,&#123;xxx:xxx&#125;])</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">db.testC.insertOne(&#123;name:"first"&#125;)</div><div class="line">db.testC.insertMany([&#123;name:"first"&#125;,&#123;name:"second"&#125;,&#123;name:"third"&#125;,&#123;name:"toDelete"&#125;])</div></pre></td></tr></table></figure>
+<p>如果没有指定_id字段,mongo则会自动生成该字段作为索引.(对于批量操作还有有序和无序之分,具体参见官方文档)</p>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询:"></a>查询:</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.collectionName.find(&lt;filter&gt;,&lt;projection&gt;)</div></pre></td></tr></table></figure>
+<p>filter 是查询条件,projections是投影,其实是对数据做一些限制</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// select * from testC</span></div><div class="line">db.testC.find()</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// select name from testC where name &gt;= "third" or _id = ObjectId("5ce91317811bea15014713f5");</span></div><div class="line"></div><div class="line">db.testC.find(&#123;$or:[&#123;name:&#123;$gte:<span class="string">"third"</span>&#125;&#125;,&#123;<span class="number">_</span>id:ObjectId(<span class="string">"5ce91317811bea15014713f5"</span>)&#125;]&#125;,&#123;<span class="number">_</span>id:<span class="number">0</span>&#125;)</div></pre></td></tr></table></figure>
+<p>这条语句的大体意思和注释类似,其中_id:0 的意思是_id 字段不返回,其余类似or的还有and,类似gte的还有<code>gt,lte,lt,ne,in</code>等.</p>
+<p>结果如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123; </div><div class="line">    <span class="attr">"name"</span> : <span class="string">"first"</span></div><div class="line">&#125;</div><div class="line">&#123; </div><div class="line">    <span class="attr">"name"</span> : <span class="string">"third"</span></div><div class="line">&#125;</div><div class="line">&#123; </div><div class="line">    <span class="attr">"name"</span> : <span class="string">"todrop"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除:"></a>删除:</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">db.collectionName.deleteOne()</div><div class="line">db.collectionName.deleteMany()</div><div class="line">db.colletcionName.drop()</div></pre></td></tr></table></figure>
+<p>drop则是删除对应集合中的所有文档.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// delete from testC where name = "todrop"</span></div><div class="line">db.testC.deleteOne(&#123;name:<span class="string">"todrop"</span>&#125;)</div></pre></td></tr></table></figure>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// db.collection.update( criteria, objNew, upsert, multi )</span></div><div class="line">db.collectionName.updateOne(&lt;filter&gt;, &lt;update&gt;, &lt;options&gt;)</div><div class="line">db.collectionName.updateMany(&lt;filter&gt;, &lt;update&gt;, &lt;options&gt;)</div><div class="line">db.collectionName.replaceOne(&lt;filter&gt;, &lt;update&gt;, &lt;options&gt;)</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// update testC set name = "1" where name = first</span></div><div class="line"><span class="comment">// updateOne 则是只更新一条.老版本是有update方法的,会有option true or false 指定更新一条还是多条 就是multi这个字段，upsert 则是指定未查询到时是否创建</span></div><div class="line"></div><div class="line">db.testC.updateMany(&#123;name:<span class="string">"first"</span>&#125;,&#123;$<span class="built_in">set</span>:&#123;name:<span class="string">"1"</span>&#125;&#125;)</div></pre></td></tr></table></figure>
+<h1 id="五-聚合"><a href="#五-聚合" class="headerlink" title="五.聚合"></a>五.聚合</h1><p>这个有点类似管道就是数据一轮一轮的处理</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.collectionName.aggregate(AGGREGATE_OPERATION)</div></pre></td></tr></table></figure>
+<p>这个这里也仅仅是提示下有这种用法,这是一个示例</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">db.collectionName.aggregate([</div><div class="line">    &#123;</div><div class="line">        // filter1</div><div class="line">        $match:&#123;</div><div class="line">	        "_id":&#123;$gte:ObjectId("xxx"),$lt:ObjectId("xxx")&#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        //filter2</div><div class="line">	    $match:&#123;</div><div class="line">	            "field1":&#123;$in:[</div><div class="line">	                        '111',</div><div class="line">	                        '222',</div><div class="line">	                        '333',</div><div class="line">	                        '444'</div><div class="line">                          ]</div><div class="line">                     &#125;,</div><div class="line">		       "field2":filedValue2</div><div class="line">             &#125;						  		</div><div class="line">	&#125;,</div><div class="line">							  </div><div class="line">	&#123;</div><div class="line">        //aggregate</div><div class="line">	    $group:&#123;</div><div class="line">            	_id:"$columnName",</div><div class="line">           		count:&#123;$sum:1&#125;,</div><div class="line">           		alias1:&#123;$sum:"$field3"&#125;,</div><div class="line">            	alias2:&#123;$sum:"$field4"&#125;</div><div class="line">            &#125;</div><div class="line">	&#125;</div><div class="line">							  </div><div class="line">])</div></pre></td></tr></table></figure>
+<p>这里简单说明下:这段语句的意思就是首先经过filter1的数据再经过filter2的过滤(先按照filter1的索引过滤这样第二个filter会快点),后面则是按照columnName字段分组,<code>count:{$sum:1}</code>则是统计行数作为count,这里$sum如果不指定字段则是统计行数,统计field3的和作为alias1的值,统计field4的和作为alias2的值</p>
+<p>举个小例子<br>数据如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">db.testC.insertMany(</div><div class="line">    [</div><div class="line">        &#123;name:"first",age:1,city:"shanghai",score:90&#125;,</div><div class="line">        &#123;name:"second",age:2,city:"shanghai",score:91&#125;,</div><div class="line">        &#123;name:"third",age:3,city:"shanghai",score:92&#125;,</div><div class="line">        &#123;name:"fourth",age:4,city:"nanjing",score:93&#125;,</div><div class="line">        &#123;name:"fifth",age:5,city:"nanjing",score:94&#125;,</div><div class="line">        &#123;name:"left",age:4,city:"unknow",score:100&#125;</div><div class="line">    ]</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>执行语句如下:其中<code>5ce925cf10bc5eb4a70f8782</code>是first的_id值</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">db.testC.aggregate([</div><div class="line">	&#123;</div><div class="line">	  $match:&#123;</div><div class="line">	  	"_id":&#123;$gt:ObjectId("5ce925cf10bc5eb4a70f8782")&#125;</div><div class="line">	  &#125;</div><div class="line">	&#125;,</div><div class="line">	</div><div class="line">	&#123;</div><div class="line">	  $match:&#123;"city":&#123;$in:[</div><div class="line">		  	"shanghai",</div><div class="line">		  	"nanjing"</div><div class="line">		  ]&#125;&#125;</div><div class="line">	&#125;,</div><div class="line">	</div><div class="line">	&#123;</div><div class="line">		$group:&#123;</div><div class="line">			_id:"$city",</div><div class="line">			count:&#123;$sum:1&#125;,</div><div class="line">			ageSum:&#123;$sum:"$age"&#125;,</div><div class="line">			scoreSum:&#123;$sum:"$score"&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">])</div></pre></td></tr></table></figure>
+<p>结果如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123; </div><div class="line">    <span class="attr">"_id"</span> : <span class="string">"nanjing"</span>, </div><div class="line">    <span class="attr">"count"</span> : NumberInt(<span class="number">2</span>), </div><div class="line">    <span class="attr">"ageSum"</span> : <span class="number">9.0</span>, </div><div class="line">    <span class="attr">"scoreSum"</span> : <span class="number">187.0</span></div><div class="line">&#125;</div><div class="line">&#123; </div><div class="line">    <span class="attr">"_id"</span> : <span class="string">"shanghai"</span>, </div><div class="line">    <span class="attr">"count"</span> : NumberInt(<span class="number">2</span>), </div><div class="line">    <span class="attr">"ageSum"</span> : <span class="number">5.0</span>, </div><div class="line">    <span class="attr">"scoreSum"</span> : <span class="number">183.0</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="六-补充"><a href="#六-补充" class="headerlink" title="六.补充"></a>六.补充</h1><p>这里很多内容没有涉及,例如索引以及事务副本集等.均可以参考官方文档.还有就是可以通过部分可视化工具简化操作例如mongochef等</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>客官扫码领红包哟~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alired.png" alt="shaorxcn 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+          
+            <a href="/tags/nosql/" rel="tag"># nosql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/18118/" rel="next" title="sql(基于mysql)速记一">
+                <i class="fa fa-chevron-left"></i> sql(基于mysql)速记一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MTU0NC8xODA5MQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="shaorxcn" />
+            
+              <p class="site-author-name" itemprop="name">shaorxcn</p>
+              <p class="site-description motion-element" itemprop="description">The more you pay , the more you will gain.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ShaorxCN" title="GitHub &rarr; https://github.com/ShaorxCN" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-概述"><span class="nav-number">1.</span> <span class="nav-text">一. 概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-素材准备"><span class="nav-number">2.</span> <span class="nav-text">二.素材准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-安装以及数据库准备"><span class="nav-number">3.</span> <span class="nav-text">三.安装以及数据库准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-CRUD"><span class="nav-number">4.</span> <span class="nav-text">四.CRUD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入"><span class="nav-number">4.1.</span> <span class="nav-text">插入:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询"><span class="nav-number">4.2.</span> <span class="nav-text">查询:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除"><span class="nav-number">4.3.</span> <span class="nav-text">删除:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">4.4.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-聚合"><span class="nav-number">5.</span> <span class="nav-text">五.聚合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六-补充"><span class="nav-number">6.</span> <span class="nav-text">六.补充</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shaorxcn</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+    <script>
+      window.livereOptions = {
+        refer: 'posts/62568/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
