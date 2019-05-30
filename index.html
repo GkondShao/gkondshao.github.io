@@ -328,6 +328,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.evanshao.com/posts/47834/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shaorxcn">
+      <meta itemprop="description" content="The more you pay , the more you will gain.">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GO!">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/posts/47834/" class="post-title-link" itemprop="https://blog.evanshao.com/index.html">awk学习笔记</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-29 22:54:56" itemprop="dateCreated datePublished" datetime="2019-05-29T22:54:56+08:00">2019-05-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-30 17:12:49" itemprop="dateModified" datetime="2019-05-30T17:12:49+08:00">2019-05-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          因为自己shell脚本不怎么会就想着刷点题目看看哪里是盲点.然后leetcode上shell分类很少,就四道,前面两道简单的没啥说的,后面两道用到了awk,恰好也是自己不会的,趁着这个机会翻阅资料学习并记录下来以备后面翻阅
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/47834/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.evanshao.com/posts/42134/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1446,7 +1624,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-25 19:49:51" itemprop="dateModified" datetime="2019-05-25T19:49:51+08:00">2019-05-25</time>
+                <time title="修改时间：2019-05-30 17:17:34" itemprop="dateModified" datetime="2019-05-30T17:17:34+08:00">2019-05-30</time>
               
             
           </span>
@@ -1498,35 +1676,16 @@
 
       
         
+          这里主要是记录下如何将之前通过hexo生成的网站内容部署到服务器上并且绑定域名以供大家查看~
+          <!--noindex-->
           
-            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>很久之前,在开始写blog的时候，第一篇就是<a href="http://blog.evanshao.com/2016/08/11/Hexo&amp;github%20%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">如何用hexo以及github搭建自己的个人博客</a>。当时是参照的朋友的<a href="http://shiweicn.github.io/2015/04/01/hexo-github-blog/" target="_blank" rel="external">博客</a>写的，其中还有一部分是关于绑定自己域名的。不过当时因为自己懒就没写。现在刚好填个坑.</p>
-<h2 id="git服务器搭建"><a href="#git服务器搭建" class="headerlink" title="git服务器搭建"></a>git服务器搭建</h2><p>之前是上传到GitHub上,现在自然是上传到自己的git服务器上。至于服务器自己选择购买就可以了,具体还需要安装nginx以及git。至于安装步骤这里就略过了。然后一般来讲是为git单独创建一个用户。具体命令如下,比如用户名就是git。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># root下创建git用户</div><div class="line">useradd git</div><div class="line"># 修改密码</div><div class="line">passwd git</div></pre></td></tr></table></figure>
-<p>然后切换到git用户并切换到对应目录。这里选择使用ssh认证,所以要做相应的准备。并将公钥上传至服务器.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mkdir .ssh &amp;&amp; chmod 700 .ssh</div><div class="line">touch .ssh/authorized_keys &amp;&amp; chmod 600 .ssh/authorized_keys</div><div class="line"></div><div class="line"># 将公钥文件追加到认证文件中。需要预先将公钥文件上传至服务。</div><div class="line">cat xxxx.pub &gt;&gt; ~/.ssh/authorized_keys</div></pre></td></tr></table></figure></p>
-<p>然后为了安全考虑，将git用户限制仅能使用git-shell，也就是禁止ssh登陆进行操作，比如多人协作的情况下就有必要做这样的限制了。这里自己考虑设置即可。使用<code>chsh git -s $(which git-shell)</code>指令即可,一般来说，安装git都会自带git-shell的。这里就直接使用了。</p>
-<p>到此，服务器的认证工作就准备结束。接下里就是新建git仓库.<br>以blog为例.在git用户目录下执行以下操作.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建仓库文件夹</div><div class="line">mkdir blog.git</div><div class="line">cd blog.git</div><div class="line"># bare 是仅仅支持git更新，本地是不能直接操作git仓库的 --share则是默认权限</div><div class="line">git init --bare --shared</div></pre></td></tr></table></figure>
-<p>这时候就可以在本地机器中git clone检查下是否生效。</p>
-<p><code>git clone ssh://git@host:port/home/userName/blog.git</code></p>
-<p>这里如果是默认端口的话可以省略协议名，但是因为部分vps会屏蔽一些常用端口，所以如果有这方面的限制的话可以参照上面的格式。<br>如果是之前已经有hexo项目的话，修改<code>_config.yml</code> 文件中的repo使其与上面git clone的地址一致即可。修改完成后执行hexo 相关命令校验。</p>
-<p>最后一步就是如何将hexo 博客项目部署到nginx了。当然前提是安装好nginx.这里就不多做描述。(其中需要注意的是如果想仅仅在git用户下就完成所有操作的话，需要注意nginx安装时–prefix指定安装目录.还有就是非root用户不能使用1024以下端口问题，可以考虑使用以下命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># xxx为nginx启动文件目录</div><div class="line">setcap cap_net_bind_service=ep xxxx</div></pre></td></tr></table></figure>
-<p>这样就能以git用户启动nginx了。当然还有其他解决方法，这里不多说了。<br>最后则是修改blog.git/hooks中的post-update文件实现每次更新时自动将html文件部署到nginx。具体内容如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cd /</div><div class="line"># 自己替换nginx目录</div><div class="line">cd xxxx/nginx/html/</div><div class="line"># 自己替换仓库目录</div><div class="line">git clone xxxx/blog.git</div><div class="line">cp -rf blog/* .</div><div class="line">rm -rf blog</div></pre></td></tr></table></figure>
-<p>这样就实现每次提交后自动发布的功能了，这时候已经可以直接用vps的ip访问看看了。</p>
-<p>当然这里可以考虑在nginx中增加限流设置。常见的比如:<br>http下<br>limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;<br>server下<br>limit_req zone=one burst=5 nodelay;<br>(限制请求数策略平均10/s )</p>
-<p>http下:<br>limit_conn_zone $binary_remote_addr zone=addr:10m;<br>server下:<br>limit_conn addr 1<br>（限制单ip连接数1）</p>
-<p>…等等等等依据自己实际情况设置。</p>
-<p>这里为止，git服务器就搭建好了。</p>
-<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>这时候依旧只能通过ip访问，我们需要去购买一个域名，这个可以参考开头给出的我朋友的博客内容。重点是如何绑定呢。这里以godaddy为例。先点击用户下的我的产品进入以下页面<br><img src="/images/godaddy1.png" alt="sorry,the pic is missing"></p>
-<p>接着点击图中框出的DNS按钮，接着点击右下角的添加.出现如下图的界面</p>
-<p><img src="/images/godaddy2.png" alt="sorry,the pic is missing"></p>
-<p>其中类型选择A,主机@就是默认域名，如果填充内容的话就类似是二级域名。比如填充test就是test.xxx….指向就是vps的公网地址了。填写完成之后保存。就可以等待生效了。这时候还记得上面提到的git clone的地址以及config文件中修改的remote地址吗。这里就可以用域名替换ip地址了,不过依旧会被转换回来..</p>
-<p>具体的域名绑定可以参考这篇<a href="http://godaddy.idcspy.com/godaddy-jx" target="_blank" rel="external">文章</a></p>
-<p>至此，所有的内容就都结束了~</p>
-<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>很久没更了,刚好重新开始，顺便填个坑。内容不多，写的很难受，表达的也很奇怪。但是作为新的开始，希望自己能够坚持下去。其实这种方式费时费力，不如买个域名直接链接到简书一类的网站，那就轻松很多了~</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/45828/">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -1643,7 +1802,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-25 19:49:13" itemprop="dateModified" datetime="2019-05-25T19:49:13+08:00">2019-05-25</time>
+                <time title="修改时间：2019-05-30 17:18:13" itemprop="dateModified" datetime="2019-05-30T17:18:13+08:00">2019-05-30</time>
               
             
           </span>
@@ -1695,52 +1854,16 @@
 
       
         
+          mysql必知必会学习笔记~
+          <!--noindex-->
           
-            <h1 id="mysql-用法合集"><a href="#mysql-用法合集" class="headerlink" title="mysql 用法合集"></a>mysql 用法合集</h1><p>条目很多，主要是提供模板以及部分注意点，并无具体例子，作为学习笔记。</p>
-<p><code>create database databaseName;</code> 新建库<br><code>create user userName@host identified by password;</code> 创建用户并指定密码限制登陆ip<br><code>grant xxx on databaseName.xxx to userName@host;</code> 赋予某个用户某个库的某些权限<br><code>Revoke xxx on dbName.xxx from user;</code>撤销权限<br><code>show databases;</code> 展示该用户下所有的库<br><code>select database();</code> 查询当前使用的库<br><code>select user();</code> 查询当前用户<br><code>show tables</code> 展示该库所有的表<br><code>desc tableName/show columns  from  tableName;</code> 展示表的字段结构<br><code>Rename user userName to userName2;</code>用户重命名<br><code>Drop user userName;</code>删除用户<br><code>Set password for userName = password(xxxx)</code><br><code>Set password = password(xxx)</code>//默认修改当前用户</p>
-<h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h3 id="基础模板"><a href="#基础模板" class="headerlink" title="基础模板:"></a>基础模板:</h3><p><code>select xxx from xxx where xxx group by xxx having xxx order by xxx limit xx;</code></p>
-<h3 id="去重查询"><a href="#去重查询" class="headerlink" title="去重查询:"></a>去重查询:</h3><p><code>distinct</code> :<code>select distinct xxx from xxx</code></p>
-<h3 id="where过滤查询"><a href="#where过滤查询" class="headerlink" title="where过滤查询"></a>where过滤查询</h3><p>包含等于(=)，不等于(!=,&lt;&gt;)，大于小于(&gt;,&lt;)，大于等于(&gt;=)，小于等于(&lt;=)，between(包头包尾)等条件操作符,IS NULL(空值检查)，and/or/not 关键字。还有就是like与通配符，正则的使用等。</p>
-<p>其中条件操作符就是对某个列的值做对应的比较<code>where columnName 条件操作符 value</code> ，注意下between包头包尾(<code>between x and y</code>)即可。其他的主要讲下注意点。</p>
-<p>NULL 指的是不包含值而不是零值。TIP!在涉及到不匹配的时候需要注意。<br>ex:<code>select xxx from xxx where columnName != y</code> 这里columnName如果是null,他是不会检索返回的。我测试的时候是使用的mysql5.7.10 社区版</p>
-<p>IN 指的是某列的值在一个集合里，类似于or的功能，但是执行效率高一点:<code>where column in (x,y,z)</code></p>
-<p>AND 与操作，OR或操作。用于多个条件的拼接。AND优先级高于OR,为了防止歧义，可以使用括号</p>
-<p>NOT 非操作。否定后面的操作。</p>
-<p>like 配合通配符使用:<br><code>where xxx like &quot;%xx</code>。<code>%</code>表示n个字符(n &gt;= 0)<br><code>where xxx like &quot;_xx</code>。<code>_</code>表示1个字符<br>不过不推荐使用，如果使用的话推荐放在检索条件的最后。原因是效率问题</p>
-<p>这里where后面还可以跟正则搜索<code>regexp</code>这里是不区分大小写的，如果需要对匹配的值注意大小写，使用binary：<code>where columnName regexp binary &#39;A&#39;</code>常规使用可以参考正则使用，举个简单例子<br> <code>select * from spider_user where username regexp  &#39;^a[a-z\\-]*[0-9]+$&#39;</code> 这里匹配a开头中间包含(0或者多个)(小写字母或者-符号)并且数字结尾的值</p>
-<h4 id="限制查询"><a href="#限制查询" class="headerlink" title="限制查询:"></a>限制查询:</h4><p><code>limit</code> <code>select xx from xxx limit index,nums</code><br>    or<br><code>select xxx from xxx limit nums offset index</code>//mysql5开始支持<br>从index 开始查询nums条记录，index是从0开始的</p>
-<h4 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询:"></a>分组查询:</h4><p>Group by这时候的聚集函数(下面有讲)就是针对分组数据生效的.除了计算聚合函数外，select后的每一个都必须出现在group by 中:<br><code>select vacation,count(*) as nums from spider_user where sex in(&#39;0&#39;,&#39;1&#39;) group by vacation having nums&gt;=2 order by vacation</code></p>
-<h4 id="联结查询"><a href="#联结查询" class="headerlink" title="联结查询:"></a>联结查询:</h4><p>join(inner join),left join,right join<br>使用等值联结/内联结:<br><code>select a.x,b.y from a,b where a.xxx = b.xxx</code><br>    or<br><code>select a.x,...,b.y,... from a inner join b on a.aaa = b.bbb</code><br>左联结:<br><code>select xxx,...yyyy from  a left join b on a.username = b.username;</code><br> 右联结:<br><code>select xxx,...yyyy from  a right join b on a.username = b.username;</code></p>
-<p>通常什么联结哪边的表数据就是全的假设称为主表，另外一个没有数据的用null代替。对于on后面的过滤条件，如果条件不符合则null填充，主表例外。</p>
-<h4 id="组合查询"><a href="#组合查询" class="headerlink" title="组合查询:"></a>组合查询:</h4><p>Union/Union all：用于结果集的组合，后者不去重复</p>
-<p>全文本搜索等需要数据引擎的支持。</p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>concat():拼接对象:<br><code>select concat(username,&#39;(&#39;,name,&#39;)&#39;) from user</code>//结果以username，name的值以<code>username(name)</code>的形式显示</p>
-<p><code>upper()</code>:转换为大写<br><code>lower()</code>:转换为小写<br><code>length()</code>:返回长度<br><code>locate(substr,str)</code>：返回str中substring第一次出现的位置，位置是从1开始数的。<br><code>ltrim()</code>:去掉左边的空格<br><code>rtrim()</code>:去掉右边的空格<br><code>trim()</code>:去掉两边的空格<br><code>substring(target,pos,len)</code>:在target中从pos位置开始取len长度的子串。pos为负数代表从尾部倒数第几个开始。计算pos依旧是从1开始数位置<br><code>left(target,len)</code>:代表从左边开始取len长度<br><code>right(target,len)</code>:代表从右边开始取len长度</p>
-<p>这里还有个比较好玩的:<br><code>soundex(xxx)</code> 代表发音:ex:<code>select * from spider_user where soundex(name) = soundex(&#39;quite&#39;)</code>这里检索到了name为quiet的数据</p>
-<p>部分聚集函数:<br><code>AVG()</code>:求平均值<br><code>MIN()</code>:求最小值<br><code>MAX()</code>:求最大值<br><code>SUM()</code>:求总和<br><code>COUNT()</code>:求数量。这里同样需要注意null值是不计入的</p>
-<p>其他还有部分例如时间处理函数，数学方面的比如Mod()取余数:<br><code>Abs()</code>:绝对值<br><code>Cos()</code>:余弦值<br><code>Exp()</code>:返回一个数的指数值<br><code>Mod(x,y)</code>:返回x处于y的余数<br><code>Pi()</code>:返回圆周率<br><code>Rand()</code>:返回随机数<br><code>Sin()</code>:返回正弦值<br><code>Sqrt()</code>:返回一个数的平方根<br><code>Tan()</code>:返回正切<br><code>AddDate()</code>:增加一个日期:<code>adddate(order_date,interval 2 day)</code>order_date加两天返回<br><code>CurDate()</code>:返回当前日期<br><code>CurTime()</code>:返回当前时间<br><code>Date()</code>:返回一个datetime的日期部分<br><code>Time()</code>:返回一个datetime的时间部分<br><code>Day()</code>:返回一个日期的天数部分<br><code>DayOfWeek()</code>:返回一个日期对应的是周几<br><code>Month()</code>:返回一个日期的月份<br><code>Year()</code>:返回一个日期的年份<br>    …</p>
-<h3 id="数据操作语句部分"><a href="#数据操作语句部分" class="headerlink" title="数据操作语句部分"></a>数据操作语句部分</h3><p><code>insert into xxx(columnName[,columnName...])values(.....)[,(...)]</code>:插入数据<br><code>update  xxx set columnName = value where xxxxx</code>更新数据<br><code>delete from xxxx where aaa = bbbb</code>删除数据<br>这里有个关于mysql安全模式的问题，在安全模式下是不能做一些敏感操作的，就比如说上面的delete后面不接where啥的。可以通过<code>set sql_safe_updates = 0</code>(关闭)/<code>set sql_safe_updates = 1</code>(开启)设置</p>
-<h3 id="数据定义语句部分"><a href="#数据定义语句部分" class="headerlink" title="数据定义语句部分"></a>数据定义语句部分</h3><h4 id="create可以创建表，视图，包括后面的存储过程等。"><a href="#create可以创建表，视图，包括后面的存储过程等。" class="headerlink" title="create可以创建表，视图，包括后面的存储过程等。"></a>create可以创建表，视图，包括后面的存储过程等。</h4><p>建表:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> [<span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> ] tableName(</div><div class="line">    columnName dataType  constraint_name,</div><div class="line">    columnName dataType  constraint_name,</div><div class="line">    ...，</div><div class="line">    primary <span class="keyword">key</span>(xxx[,xxx])</div><div class="line">)[<span class="keyword">engine</span> = <span class="keyword">InnoDb</span>][<span class="keyword">default</span> <span class="keyword">charset</span>= utf8];</div></pre></td></tr></table></figure></p>
-<p>其中constraint_name可以是not null ,auto_increment等使用primary key创建主键。外键类似。<br>这里auto_increment是设定自增长(一张表只能一个，且必须是索引，比如给主键)。一般默认是1,可以通过<code>SHOW VARIABLES LIKE &#39;AUTO_INC%&#39;;</code>查看，<code>SET auto_increment_increment = 3</code>修改步长为3同样可以修改初始值，不过通过语句修改重启失效，推荐修改配置文件my.ini在服务端配置下([mysqld])写<code>auto_increment_increment = 10</code>设置。<br>可以通过<code>select last_insert_id()</code>获取自增值</p>
-<p>创建视图:<br><code>CREATE [OR REPLACE] [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}] VIEW [db_name.]view_name [(column_list)] AS select_statement [WITH [CASCADED | LOCAL] CHECK OPTION]</code></p>
-<h4 id="drop删除"><a href="#drop删除" class="headerlink" title="drop删除"></a>drop删除</h4><p><code>drop table if exists tableName</code><br>视图一类的同理<br><code>drop index index_name on tableName</code>//删除指定的索引</p>
-<h4 id="通过alter修改表结构"><a href="#通过alter修改表结构" class="headerlink" title="通过alter修改表结构"></a>通过alter修改表结构</h4><p><code>alter table  tableName add columnName dataType[constraint_name]</code>//增加列<br><code>alter table tableName modify columnName xxxx</code>//修改列<br><code>alter table tableName drop column columnName</code>//删除列<br><code>alter table tableName add index index_name(columnName list)</code>orr<br><code>create index indexName on tableName(columnList)</code>//新增索引<br><code>drop index indexName on tableName</code>or<code>alter table tableName drop index indexName</code>//删除索引<br><code>ALTER TABLE table_name ADD CONSTRAINT pk_name PRIMARY KEY(columnList)</code>//新增主键或者可以通过modify的形式新增<br><code>Alter table tableName add constraint 外键名字 foreign key (columnName)        references tableName(columnName)</code> 新增外键<br><code>alter table tableName drop primary key</code>//删除主键<br><code>alter talbe tableName drop foreign key key_name</code>//删除外键</p>
-<h4 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h4><p><code>rename table tableNameOld to tableNameNew</code></p>
-<h4 id="清空表"><a href="#清空表" class="headerlink" title="清空表"></a>清空表</h4><p><code>truncate table tableName</code></p>
-<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>Transaction 事务//set autocommit = 0(1)是否自动提交<br>Commit 提交事务<br>Rollback 回滚//无法回退create and drop<br>Savepoint 保留点,可以创建多个保留点，rollback to savepointName ;回滚到指定保留点</p>
-<p>Start transaction ;开始事务一旦rollback或者commit事务自动结束</p>
-<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><p>这里举一个例子来解释下.这是mysql必知必会中的一个例子<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">-- 存在就删除</span></div><div class="line"><span class="keyword">drop</span> <span class="keyword">procedure</span> <span class="keyword">if</span> <span class="keyword">exists</span> ordertotalWithTax;</div><div class="line"><span class="comment">-- 暂时将mysql 的结束符替换为//	</span></div><div class="line">delimiter //</div><div class="line"><span class="comment">-- 这里增加了注释</span></div><div class="line"> <span class="comment">-- name:ordertotalWith tax</span></div><div class="line"><span class="comment">-- parameters: onnumer:订单号</span></div><div class="line"><span class="comment">-- 			   taxable:是否计税</span></div><div class="line"><span class="comment">--              ototal : 返回的总值</span></div><div class="line"><span class="comment">-- 开始创建，in代表是输入的参数，out代表是输出，后面可以通过select查询到</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> ordertotalWithTax(</div><div class="line">    <span class="keyword">in</span> onnumber <span class="built_in">int</span>,</div><div class="line">    <span class="keyword">in</span> taxable <span class="built_in">boolean</span>,</div><div class="line">    <span class="keyword">out</span> ototal <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>)</div><div class="line">)<span class="keyword">comment</span> <span class="string">'是否计税的订单总额计算'</span></div><div class="line"><span class="comment">-- 代表内容的开始	</span></div><div class="line"><span class="keyword">begin</span></div><div class="line">    <span class="comment">-- declare 关键字声明变量等</span></div><div class="line">    <span class="comment">-- 创建临时存储总量（包含tax）</span></div><div class="line">    <span class="keyword">declare</span> t_total <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>);</div><div class="line">    <span class="comment">-- 税制基数</span></div><div class="line">    <span class="keyword">declare</span> taxrate <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">6</span>;        </div><div class="line">    <span class="comment">-- get the t_total，into关键字带便数据的输入</span></div><div class="line">    <span class="keyword">select</span> <span class="keyword">sum</span>(item_price*quantity) <span class="keyword">from</span> orderitems <span class="keyword">where</span> order_num = onnumber <span class="keyword">into</span> t_total;</div><div class="line">            </div><div class="line">    <span class="comment">-- 是否计税 使用了if</span></div><div class="line">    if taxable then</div><div class="line">        <span class="keyword">select</span> t_total+(t_total/<span class="number">100</span>*taxrate) <span class="keyword">into</span> t_total;</div><div class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</div><div class="line">            </div><div class="line">    <span class="comment">-- 汇总结果</span></div><div class="line">    <span class="keyword">select</span> t_total <span class="keyword">into</span> ototal;</div><div class="line"><span class="keyword">end</span>//</div><div class="line"><span class="comment">-- 将结束符还原</span></div><div class="line">delimiter ;</div></pre></td></tr></table></figure></p>
-<p><code>call ordertotalWithTax(20005,false,@total)</code>调用的时候变量一定要带@符号。<br><code>select @total;</code>查询出结果。</p>
-<h3 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h3><p>游标主要用在存储过程之中。<br><code>declare ordernumbers cursor for select order_num from orders;</code>这里就是创建了名为ordernumbers的游标，他指向后面select的结果集<br><code>open ordernumbers</code>打开<br><code>close ordernumbers</code>关闭<br><code>fetch ordernumbers to xx</code>将读取的一行数据给xx,游标指向下一条数据<br>这里对于declare有个队形，声明顺序满足局部变量，游标，句柄(handler)否则出错</p>
-<h3 id="触发器"><a href="#触发器" class="headerlink" title="触发器"></a>触发器</h3><p>Update ,delete,insert语句触发触发器(其规定同表同一类型的触发器只有一个也就是说最多六个3x2，且没有组合触发器，insert,update就得两个，不能合在一起写）<br>创建触发器：唯一的触发器名，关联的表，响应的操作，何时执行</p>
-<p>Create trigger  triggerName after(就是when: after/before)  insert（操作类型:insert,update,delete） on tableName(关联的表) xxxx执行</p>
-<p>Insert 触发器<br>在insert 触发器中可以引用一个名为new的虚拟表，访问被插入的行在before insert触发器中,new的值可以被更新，也就是修改插入的值.对于auto_increment.new在insert执行之前包含0，在insert之后包含新的自动生成值<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> <span class="keyword">if</span> <span class="keyword">exists</span> neworder;</div><div class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> neworder <span class="keyword">after</span> <span class="keyword">insert</span> <span class="keyword">on</span> orders <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">select</span> new.order_num <span class="keyword">into</span> @seq;</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> orders(order_date, cust_id)</div><div class="line"><span class="keyword">VALUES</span>(<span class="keyword">now</span>(), <span class="number">10001</span>);</div><div class="line"><span class="keyword">select</span> @seq;<span class="comment">--这里就是刚自动生成的值</span></div></pre></td></tr></table></figure></p>
-<p>Delete触发器可以引用一个old的虚拟表，访问被删除的行，但是是readonly<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> archive_orders <span class="keyword">like</span> orders;</div><div class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> <span class="keyword">if</span> <span class="keyword">exists</span> deleteorder;</div><div class="line">delimiter //</div><div class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> deleteoreder  <span class="keyword">before</span> <span class="keyword">delete</span> <span class="keyword">on</span> orders <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> </div><div class="line"><span class="keyword">begin</span></div><div class="line">	<span class="keyword">insert</span> <span class="keyword">into</span> archive_orders(order_num,order_date,cust_id) <span class="keyword">values</span>(old.order_num,old.order_date,old.cust_id);</div><div class="line"><span class="keyword">end</span>//</div><div class="line">delimiter ;</div><div class="line"><span class="keyword">delete</span> <span class="keyword">from</span> orders <span class="keyword">where</span> order_num = <span class="number">20010</span>;</div></pre></td></tr></table></figure></p>
-<p>这里就是将删除的数据放到一个其他表里</p>
-<p>update触发器可以引用一个old的虚拟表，访问被更新的值，new访问更新的值。old只读，new可以修改，也就是说before可以修改更新的值<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">drop</span> <span class="keyword">trigger</span> <span class="keyword">if</span> <span class="keyword">exists</span> updatevendor;</div><div class="line">		</div><div class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> updatevendor <span class="keyword">before</span> <span class="keyword">update</span> <span class="keyword">on</span> vendors <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">set</span> new.vend_state = <span class="keyword">upper</span>(new.vend_state);</div><div class="line">		</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> vendors(vend_id, vend_name, vend_address, vend_city, vend_state, vend_zip, vend_country)</div><div class="line"><span class="keyword">VALUES</span>(<span class="number">1001</span>,<span class="string">'Anvils R Us'</span>,<span class="string">'123 Main Street'</span>,<span class="string">'Southfield'</span>,<span class="string">'MI'</span>,<span class="string">'48075'</span>, <span class="string">'USA'</span>);</div><div class="line">		</div><div class="line"><span class="keyword">update</span> vendors <span class="keyword">set</span> vend_state = <span class="string">'asd'</span> <span class="keyword">where</span> vend_id = <span class="number">1001</span>;</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> vendors <span class="keyword">where</span> vend_id = <span class="number">1001</span>;</div></pre></td></tr></table></figure></p>
-<p>这就是在更新前保证vend_state大写</p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/59908/">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
+          <!--/noindex-->
         
       
     </div>
@@ -1857,7 +1980,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-17 20:04:16" itemprop="dateModified" datetime="2018-12-17T20:04:16+08:00">2018-12-17</time>
+                <time title="修改时间：2019-05-30 17:18:59" itemprop="dateModified" datetime="2019-05-30T17:18:59+08:00">2019-05-30</time>
               
             
           </span>
@@ -1909,201 +2032,16 @@
 
       
         
+          自学go一段时间了,发现很多人在谈论groupcache,那么自己也试下吧~
+          <!--noindex-->
           
-            <p>最近准备尝试下groupcache，所以写了个<a href="https://github.com/ShaorxCN/blogCode/tree/master/groupcachetest" target="_blank" rel="external">demo</a>.并在这里记录下，以备后面查漏补缺</p>
-<p>这里仅仅记录下重要的几个方法吧<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这是创建一个httppool,其会默认注册到DefaultServeMux,也是作为服务的一个入口</span></div><div class="line"><span class="comment">//默认地址是/_groupcache/groupName/keyValue</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewHTTPPool</span><span class="params">(self <span class="keyword">string</span>)</span> *<span class="title">HTTPPool</span></span></div><div class="line"></div><div class="line">//更新<span class="title">httppool</span>,设置<span class="title">peers</span>来相互通信，如果启动的节点和这里<span class="title">set</span>的不一致的话就无法在<span class="title">peers</span>之间通信</div><div class="line"><span class="title">func</span> <span class="params">(p *HTTPPool)</span> <span class="title">Set</span><span class="params">(peers ...<span class="keyword">string</span>)</span></div><div class="line"></div><div class="line"></div><div class="line">//创建一个<span class="title">group</span>,<span class="title">groupcache</span>对数据的操作其实是围绕<span class="title">group</span>来做的<span class="params">(HTTPPool是为了实现分布式)</span></div><div class="line">//参数分别为<span class="title">groupName</span>,缓存大小，当缓存不存在时从<span class="title">slowDb</span>获取数据的<span class="title">getter</span>方法</div><div class="line"><span class="title">func</span> <span class="title">NewGroup</span><span class="params">(name <span class="keyword">string</span>, cacheBytes <span class="keyword">int64</span>, getter Getter)</span> *<span class="title">Group</span></div><div class="line"></div><div class="line">//从对应的<span class="title">group</span>中获取<span class="title">key</span>的方法。还有什么<span class="title">Name</span>一类的就不提了</div><div class="line"><span class="title">func</span> <span class="params">(g *Group)</span> <span class="title">Get</span><span class="params">(ctx Context, key <span class="keyword">string</span>, dest Sink)</span> <span class="title">error</span></div></pre></td></tr></table></figure></p>
-<p>不过groupcache和memcache是不一样的，他无法更新缓存。所以比较适合一些例如资源下载的情况?现在工作中很少有适合他的使用场景，所以也不是很了解。仅有的一个应该是之前写的影像控件补丁下载的功能.</p>
-<p>对了，还有位国外大神写了个Demo,我看很多博客里的图都是引用他的。那个例子就是从slowDb开始做了一套的简单实现,而且和rpc结合在一起了，更加的详细.代码在<a href="https://github.com/capotej/groupcache-db-experiment" target="_blank" rel="external">这里</a></p>
-
+            <div class="post-button text-center">
+              <a class="btn" href="/posts/46701/">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.evanshao.com/posts/46803/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shaorxcn">
-      <meta itemprop="description" content="The more you pay , the more you will gain.">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GO!">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/posts/46803/" class="post-title-link" itemprop="https://blog.evanshao.com/index.html">理解golang的context包</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-05-02 15:03:56" itemprop="dateCreated datePublished" datetime="2017-05-02T15:03:56+08:00">2017-05-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-17 20:04:16" itemprop="dateModified" datetime="2018-12-17T20:04:16+08:00">2018-12-17</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Golang杂记/" itemprop="url" rel="index"><span itemprop="name">Golang杂记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>感觉偷懒好久都没有写博客了,最近再开始写吧.</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>golang的context包,中文有叫做上下文的,是对程序单元运行环境的一个整体的描述.这个概念很抽象,但是在golang里,主要是用来在调用层级间传递需要用到的请求数据等.当然传递数据不是可以用channel吗?这也是可以的,但是context主要是解决一个层级的关系问题.当顶层调用取消,后面的请求也应该全部取消.这一点我们可以通过信号来实现,其实官方也是通过一个channel来监控的.</p>
-<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><p>下午看了下context包源码,代码很简单.大概理解如下记录,方面以后的查漏补缺.</p>
-<p>context.Context中两个重要的interface以及四种类型:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// A canceler is a context type that can be canceled directly. The</span></div><div class="line"><span class="comment">// implementations are *cancelCtx and *timerCtx.</span></div><div class="line"><span class="keyword">type</span> canceler <span class="keyword">interface</span> &#123;</div><div class="line">    cancel(removeFromParent <span class="keyword">bool</span>, err error)</div><div class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span> &#123;</div><div class="line">    Deadline() (deadline time.Time, ok <span class="keyword">bool</span>)</div><div class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</div><div class="line">    Err() error</div><div class="line">    Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//这四种类型其实就是我们常用到的context</span></div><div class="line"><span class="keyword">type</span> emptyCtx <span class="keyword">int</span><span class="comment">//最基础的context</span></div><div class="line"></div><div class="line"><span class="keyword">type</span> cancelCtx <span class="keyword">struct</span> &#123;</div><div class="line">    Context</div><div class="line">    done <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125; <span class="comment">// closed by the first cancel call.</span></div><div class="line">    mu       sync.Mutex</div><div class="line">    children <span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125; <span class="comment">// set to nil by the first cancel call</span></div><div class="line">    err      error                 <span class="comment">// set to non-nil by the first cancel call</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> timerCtx <span class="keyword">struct</span> &#123;</div><div class="line">    cancelCtx</div><div class="line">    timer *time.Timer <span class="comment">// Under cancelCtx.mu.</span></div><div class="line">    deadline time.Time</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> valueCtx <span class="keyword">struct</span> &#123;</div><div class="line">    Context</div><div class="line">    key, val <span class="keyword">interface</span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我们在使用context的时候大部分都是在顶端使用<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Background</span><span class="params">()</span> <span class="title">Context</span></span></div></pre></td></tr></table></figure></p>
-<p>方法来创建顶级context.和context.TODO()方法一样，他们返回的context其实就是emptyCtx.没有value,也没有deadline.<br>而实际使用过程中我们还会使用下面的四个方法<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithCancel</span><span class="params">(parent Context)</span> <span class="params">(ctx Context, cancel CancelFunc)</span></span></div><div class="line"><span class="title">func</span> <span class="title">WithDeadline</span><span class="params">(parent Context, deadline time.Time)</span> <span class="params">(Context, CancelFunc)</span></div><div class="line"><span class="title">func</span> <span class="title">WithTimeout</span><span class="params">(parent Context, timeout time.Duration)</span> <span class="params">(Context, CancelFunc)</span></div><div class="line"><span class="title">func</span> <span class="title">WithValue</span><span class="params">(parent Context, key, val <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Context</span></div></pre></td></tr></table></figure></p>
-<p>其中<code>cancel CancelFunc</code>是一个function,可以通过使用他来cancel对应的context.这四个里<code>WithValue</code>是最简单的，它仅仅是在parentContext的基础上附加了一个key值以及对应的value,正如上面valueCtx所展示的那样，是一个struct{},其中的Context就是parentContext.获取你附加的value也很简单，使用<code>Value(key interface{}) interface{}</code>即可,他会自下而上的逐层查看直到返回与key对应的value.</p>
-<p>而其他的三个方法其实都是建立在cancelCtx上的,其中<code>WithTimeout</code>就是调用的<code>WithDeadline</code>方法,而<code>WithDeadline</code>其实就是在<code>cancelCtx</code>的基础上增加了<code>deadline</code>以及<code>timer</code>这里就不再描述.</p>
-<p>最后也是最重要的context的父子关系或者说层级关系.实际上<code>CancelFunc</code>的函数体是这样的:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; c.cancel(<span class="literal">true</span>, Canceled)</div></pre></td></tr></table></figure></p>
-<p>c就是方法即将返回的context，他同时也实现了canceler接口,Canceled则是自定义的error:<code>var Canceled = errors.New(&quot;context canceled&quot;)</code><br>第一个参数是指的在cancel的时候是否将其从父context的孩子节点中移除，默认是true.这里的children用一个map来存储，在需要的时候<code>delete</code>即可.</p>
-<p>context.go文件里的代码真的很少，其实主要的就是上面讲的几个方法或者type,剩下的都是一些辅助方法比如如何返回一个子级上下文的父级上下文以及在cancel的时候注意遍历下子级上下文重复cancel的动作或者是否removeFromParent.而这里的从父级上下文中移除实际就是在cancel之后操作map做delete().这是下午单位断电后抽空拿本子看了下代码，本身博客就没写多少中间还隔了一段时间没写，感觉完全不知道写什么，很尴尬，后面在多写多练习吧.最后写下go doc中对于使用context的几点建议吧</p>
-<ul>
-<li>不要将需要的传递的context包含在一个struct中,而且在需要传递context的函数参数列表中将context放在最前面作为第一个参数,就好像下面写的这样:<code>func DoSomething(ctx context.Context, arg Arg) error</code></li>
-<li>哪怕方法允许也不要传递一个nil的Context,如果确实不确定使用哪种context,请使用context.TODO()</li>
-<li>context的Value仅仅用在程序以及API交互的请求周期中传递的数据上，别用在给函数传递一些可选的参数</li>
-<li>context可以传递给不同goroutine来执行,同时在多个goroutine中使用是安全的<br>（原谅我的渣翻译）</li>
-</ul>
-
-          
+          <!--/noindex-->
         
       
     </div>
@@ -2194,7 +2132,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2272,7 +2210,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
